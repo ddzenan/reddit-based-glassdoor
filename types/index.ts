@@ -35,3 +35,10 @@ export type RedditPostWithComments = RedditMetadata & {
   sentiment?: string;
   comments: RedditComment[];
 };
+
+/**
+ * Defines the types of analyses that can be performed on Reddit posts.
+ * - "sentiments": Classifies the sentiment of posts as positive, neutral, or negative.
+ * - "companySummary": Provides a summarized view of overall feedback related to a company.
+ */
+export type AnalysisType = "sentiments" | "companySummary";
