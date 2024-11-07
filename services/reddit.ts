@@ -1,6 +1,6 @@
 import { redditClient } from "@/lib/reddit";
 import { Submission, Comment, BaseSearchOptions } from "snoowrap";
-import { RedditMetadata, RedditComment, RedditPostWithComments } from "@/types";
+import { RedditPostWithComments } from "@/types";
 
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
@@ -43,7 +43,10 @@ export async function fetchPostsAndComments({
     posts.map(async (post) => {
       const comments = await fetchCommentsForPost(post);
       return {
-        ...extractMetadata(post),
+        id: post.id,
+        created: post.created_utc,
+        upvotes: post.ups,
+        downvotes: post.downs,
         title: post.title,
         text: post.selftext,
         comments: comments,
@@ -56,31 +59,12 @@ export async function fetchPostsAndComments({
  * Fetches a specified number of comments for a given post.
  * @param {Submission} post - Reddit post to retrieve comments for.
  * @param {number} [amount=DEFAULT_COMMENTS_AMOUNT] - Number of comments to fetch.
- * @returns {Promise<RedditComment[]>} - Array of comments.
+ * @returns {Promise<string[]>} - Array of strings representing comments.
  */
 async function fetchCommentsForPost(
   post: Submission,
   amount: number = DEFAULT_COMMENTS_AMOUNT
-): Promise<RedditComment[]> {
+): Promise<string[]> {
   const comments = await post.comments.fetchMore({ amount });
-  return comments.map((comment: Comment) => {
-    return {
-      ...extractMetadata(comment),
-      text: comment.body,
-    };
-  });
-}
-
-/**
- * Extracts basic metadata from a Reddit post or comment.
- * @param {Submission | Comment} content - The Reddit content to extract metadata from.
- * @returns {RedditMetadata} - Object containing extracted metadata.
- */
-function extractMetadata(content: Submission | Comment): RedditMetadata {
-  return {
-    id: content.id,
-    created: content.created_utc,
-    upvotes: content.ups,
-    downvotes: content.downs,
-  };
+  return comments.map((comment: Comment) => comment.body);
 }

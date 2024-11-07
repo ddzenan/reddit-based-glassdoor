@@ -1,6 +1,6 @@
 import { openaiClient } from "@/lib/openai";
 import ChatCompletion from "openai";
-import { RedditPostWithComments, RedditComment, AnalysisType } from "@/types";
+import { RedditPostWithComments, AnalysisType } from "@/types";
 
 /**
  * Represents the response from the OpenAI chat completion API.
@@ -67,12 +67,12 @@ export async function analyzeRedditPosts(
 /**
  * Converts an array of Reddit comments to a single text block.
  *
- * @param {RedditComment[]} comments - Array of Reddit comments.
+ * @param {string[]} comments - Array of Reddit comments.
  * @returns {string} - Formatted string representation of comments.
  */
-function convertCommentsToText(comments: RedditComment[]): string {
+function convertCommentsToText(comments: string[]): string {
   return comments
-    .map((comment, i) => `Comment ${i + 1}: ${comment.text}`)
+    .map((comment, i) => `Comment ${i + 1}: ${comment}`)
     .join("\n");
 }
 
