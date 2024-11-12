@@ -47,6 +47,8 @@ export async function fetchPostsAndComments({
         created: post.created_utc,
         upvotes: post.ups,
         downvotes: post.downs,
+        subreddit: subreddit,
+        url: post.url,
         title: post.title,
         text: post.selftext,
         comments: comments,
