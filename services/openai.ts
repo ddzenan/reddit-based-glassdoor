@@ -12,16 +12,17 @@ import { SENTIMENTS } from "@/utils/constants";
  */
 type ChatCompletionResponse = ChatCompletion.Chat.Completions.ChatCompletion;
 
-const MODEL = "gpt-4o-mini";
-
-const MAX_TOKENS = {
-  sentiments: 100,
-  companySummary: 300,
-};
-
-const TEMPERATURE = {
-  sentiments: 0.3,
-  companySummary: 1.0,
+const API_CONFIG = {
+  sentiments: {
+    model: "gpt-4o-mini",
+    max_tokens: 100,
+    temperature: 0.3,
+  },
+  companySummary: {
+    model: "gpt-4o-mini",
+    max_tokens: 300,
+    temperature: 1.0,
+  },
 };
 
 /**
@@ -46,15 +47,13 @@ export async function analyzeRedditPosts(
     companyName
   );
   const response = await openaiClient.chat.completions.create({
-    model: MODEL,
     messages: [
       {
         role: "user",
         content: prompt,
       },
     ],
-    temperature: TEMPERATURE[analysisType],
-    max_tokens: MAX_TOKENS[analysisType],
+    ...API_CONFIG[analysisType],
   });
   return parseAnalysisResponse(analysisType, response, postsWithComments);
 }
