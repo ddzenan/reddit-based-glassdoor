@@ -1,6 +1,7 @@
 import { openaiClient } from "@/lib/openai";
 import ChatCompletion from "openai";
 import { RedditPostWithComments, AnalysisType } from "@/types";
+import { SENTIMENTS } from "@/utils/constants";
 
 /**
  * Represents the response from the OpenAI chat completion API.
@@ -12,12 +13,6 @@ import { RedditPostWithComments, AnalysisType } from "@/types";
 type ChatCompletionResponse = ChatCompletion.Chat.Completions.ChatCompletion;
 
 const MODEL = "gpt-4o-mini";
-
-const SENTIMENTS = {
-  "0": "Positive",
-  "1": "Neutral",
-  "2": "Negative",
-};
 
 const MAX_TOKENS = {
   sentiments: 100,
