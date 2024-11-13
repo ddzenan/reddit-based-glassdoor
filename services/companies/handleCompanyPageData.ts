@@ -3,7 +3,7 @@ import {
   updateDocumentAndAddToSubcollection,
 } from "@/lib/firebaseAdmin/dataServices";
 import { fetchPostsAndComments } from "../reddit";
-import { analyzeRedditPosts } from "../openai";
+import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
 import { RedditPostWithComments, Company } from "@/types";
 import { countSentiments } from "@/utils/helpers";
 import { ANALYSIS_TYPES } from "@/utils/constants";
