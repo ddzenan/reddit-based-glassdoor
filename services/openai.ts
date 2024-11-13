@@ -1,10 +1,10 @@
-import { openaiClient } from "@/lib/openai/openaiClient";
 import {
   RedditPostWithComments,
   AnalysisType,
   ChatCompletionResponse,
 } from "@/types";
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
+import { generateChatResponse } from "@/lib/openai/dataServices";
 
 const API_CONFIG = {
   [ANALYSIS_TYPES.sentiments]: {
@@ -41,15 +41,7 @@ export async function analyzeRedditPosts(
     postsWithComments,
     companyName
   );
-  const response = await openaiClient.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    ...API_CONFIG[analysisType],
-  });
+  const response = await generateChatResponse(prompt, API_CONFIG[analysisType]);
   return parseAnalysisResponse(analysisType, response, postsWithComments);
 }
 
