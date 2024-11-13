@@ -41,12 +41,10 @@ export async function searchPosts(
  * Fetches a specified number of comments for a given post.
  *
  * @param post - Reddit post to retrieve comments for.
- * @param amount - Number of comments to fetch.
  * @returns Array of strings representing comments.
  */
 export async function fetchCommentsForPost(
-  post: Submission,
-  amount: number
+  post: Submission
 ): Promise<Comment[]> {
-  return await post.comments.fetchMore({ amount });
+  return await post.comments.fetchAll();
 }

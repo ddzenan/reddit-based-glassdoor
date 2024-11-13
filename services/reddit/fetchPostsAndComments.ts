@@ -9,7 +9,6 @@ import {
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
 const DEFAULT_POSTS_SORT_OPTION = "new";
-const COMMENTS_AMOUNT = 5;
 
 /**
  * Fetches posts and their comments from a specified subreddit.
@@ -38,7 +37,7 @@ export async function fetchPostsAndComments({
 
   return await Promise.all(
     posts.map(async (post) => {
-      const fetchedComments = await fetchCommentsForPost(post, COMMENTS_AMOUNT);
+      const fetchedComments = await fetchCommentsForPost(post);
       const comments = fetchedComments.map((comment: Comment) => comment.body);
       return {
         id: post.id,
