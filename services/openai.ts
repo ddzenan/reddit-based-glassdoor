@@ -1,16 +1,10 @@
 import { openaiClient } from "@/lib/openai/openaiClient";
-import ChatCompletion from "openai";
-import { RedditPostWithComments, AnalysisType } from "@/types";
+import {
+  RedditPostWithComments,
+  AnalysisType,
+  ChatCompletionResponse,
+} from "@/types";
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
-
-/**
- * Represents the response from the OpenAI chat completion API.
- * This type encapsulates the structure of the chat completion response,
- * including the generated messages and any associated metadata.
- *
- * @see ChatCompletion.Chat.Completions.ChatCompletion - Original type definition from the OpenAI library.
- */
-type ChatCompletionResponse = ChatCompletion.Chat.Completions.ChatCompletion;
 
 const API_CONFIG = {
   [ANALYSIS_TYPES.sentiments]: {

@@ -1,4 +1,5 @@
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
+import ChatCompletion from "openai";
 
 /**
  * A type representing the possible sentiment values as defined in the SENTIMENTS object.
@@ -63,3 +64,13 @@ export type Company = {
   neutralSentiments?: number;
   summary?: string;
 };
+
+/**
+ * Represents the response from the OpenAI chat completion API.
+ * This type encapsulates the structure of the chat completion response,
+ * including the generated messages and any associated metadata.
+ *
+ * @see ChatCompletion.Chat.Completions.ChatCompletion - Original type definition from the OpenAI library.
+ */
+export type ChatCompletionResponse =
+  ChatCompletion.Chat.Completions.ChatCompletion;
