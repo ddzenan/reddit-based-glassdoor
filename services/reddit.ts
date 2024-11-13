@@ -1,6 +1,7 @@
 import { redditClient } from "@/lib/reddit/reddit";
 import { Submission, Comment, BaseSearchOptions } from "snoowrap";
 import { RedditPostWithComments } from "@/types";
+import { getTopPosts } from "@/lib/reddit/dataServices";
 
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
@@ -36,9 +37,7 @@ export async function fetchPostsAndComments({
       time,
       sort,
     });
-  } else {
-    posts = await redditClient.getSubreddit(subreddit).getTop({ time });
-  }
+  } else posts = await getTopPosts(subreddit, time);
 
   return await Promise.all(
     posts.map(async (post) => {
