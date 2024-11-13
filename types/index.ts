@@ -8,10 +8,10 @@ import { ANALYSIS_TYPES } from "@/utils/constants";
  * @property {number} upvotes - The number of upvotes the post has received.
  * @property {number} downvotes - The number of downvotes the post has received.
  * @property {string} subreddit - The name of the subreddit where the post was posted.
- * @property {string} url - Url of the post.
+ * @property {string} url - URL of the post.
  * @property {string} title - Title of the post.
  * @property {string} text - Body text of the post.
- * @property {string} [sentiment] - Sentiment analysis result for the post (e.g., "Positive", "Neutral", or "Negative").
+ * @property {string} [sentiment] - Sentiment analysis result for the post (e.g., "positive", "neutral", or "negative").
  * @property {string[]} comments - Array containing the text of comments associated with the post.
  */
 export type RedditPostWithComments = {
