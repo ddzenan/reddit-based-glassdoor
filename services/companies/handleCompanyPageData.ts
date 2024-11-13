@@ -2,7 +2,7 @@ import {
   getDocumentsByField,
   updateDocumentAndAddToSubcollection,
 } from "@/lib/firebaseAdmin/dataServices";
-import { fetchPostsAndComments } from "../reddit";
+import { fetchPostsAndComments } from "../reddit/fetchPostsAndComments";
 import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
 import { RedditPostWithComments, Company } from "@/types";
 import { countSentiments } from "@/utils/helpers";
