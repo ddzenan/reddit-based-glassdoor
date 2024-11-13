@@ -1,11 +1,15 @@
-import { Submission, Comment, BaseSearchOptions } from "snoowrap";
+import { BaseSearchOptions, Comment } from "snoowrap";
 import { RedditPostWithComments } from "@/types";
-import { getTopPosts, searchPosts } from "@/lib/reddit/dataServices";
+import {
+  getTopPosts,
+  searchPosts,
+  fetchCommentsForPost,
+} from "@/lib/reddit/dataServices";
 
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
 const DEFAULT_POSTS_SORT_OPTION = "new";
-const DEFAULT_COMMENTS_AMOUNT = 5;
+const COMMENTS_AMOUNT = 5;
 
 /**
  * Fetches posts and their comments from a specified subreddit.
@@ -34,7 +38,8 @@ export async function fetchPostsAndComments({
 
   return await Promise.all(
     posts.map(async (post) => {
-      const comments = await fetchCommentsForPost(post);
+      const fetchedComments = await fetchCommentsForPost(post, COMMENTS_AMOUNT);
+      const comments = fetchedComments.map((comment: Comment) => comment.body);
       return {
         id: post.id,
         created: post.created_utc,
@@ -48,19 +53,4 @@ export async function fetchPostsAndComments({
       };
     })
   );
-}
-
-/**
- * Fetches a specified number of comments for a given post.
- *
- * @param post - Reddit post to retrieve comments for.
- * @param amount - Number of comments to fetch.
- * @returns Array of strings representing comments.
- */
-async function fetchCommentsForPost(
-  post: Submission,
-  amount: number = DEFAULT_COMMENTS_AMOUNT
-): Promise<string[]> {
-  const comments = await post.comments.fetchMore({ amount });
-  return comments.map((comment: Comment) => comment.body);
 }
