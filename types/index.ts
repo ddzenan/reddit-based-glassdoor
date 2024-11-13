@@ -32,3 +32,26 @@ export type RedditPostWithComments = {
  * in `ANALYSIS_TYPES` and include, for example, sentiment analysis or generating a company summary.
  */
 export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
+
+/**
+ * Represents a company with relevant metadata.
+ *
+ * @property {string} id - Unique identifier for the company.
+ * @property {string} slug - URL-friendly identifier for the company, used in the company's URL.
+ * @property {string} name - The name of the company.
+ * @property {string} [website] - The company's official website URL (optional).
+ * @property {number} [positiveSentiments] - The count of positive sentiments related to the company (optional).
+ * @property {number} [negativeSentiments] - The count of negative sentiments related to the company (optional).
+ * @property {number} [neutralSentiments] - The count of neutral sentiments related to the company (optional).
+ * @property {string} [summary] - A brief summary of the company, based on Reddit posts (optional).
+ */
+export type Company = {
+  id: string;
+  slug: string;
+  name: string;
+  website?: string;
+  positiveSentiments?: number;
+  negativeSentiments?: number;
+  neutralSentiments?: number;
+  summary?: string;
+};
