@@ -1,4 +1,12 @@
-import { ANALYSIS_TYPES } from "@/utils/constants";
+import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
+
+/**
+ * A type representing the possible sentiment values as defined in the SENTIMENTS object.
+ *
+ * This type will be one of the values in the SENTIMENTS object, which currently includes:
+ * "positive", "negative" or "neutral".
+ */
+export type SentimentType = (typeof SENTIMENTS)[keyof typeof SENTIMENTS];
 
 /**
  * Represents a Reddit post along with its comments and metadata.
