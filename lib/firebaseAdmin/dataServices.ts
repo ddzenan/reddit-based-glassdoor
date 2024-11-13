@@ -27,3 +27,29 @@ export async function getDocumentsByField(
     ...doc.data(),
   }));
 }
+
+/**
+ * Updates a main document in Firestore and creates new documents in a subcollection in a single batch.
+ *
+ * @param docPath - The path of the main document.
+ * @param updateData - The data to update in the main document.
+ * @param subcollection - The name of the subcollection to add new documents to (e.g., "redditPosts").
+ * @param subcollectionData - An array of data objects to create as new documents in the subcollection.
+ */
+export async function updateDocumentAndAddToSubcollection(
+  docPath: string,
+  updateData: Record<string, any>,
+  subcollection: string,
+  subcollectionData: Record<string, any>[]
+): Promise<void> {
+  const docRef = firestore.doc(docPath);
+  const batch = firestore.batch();
+  batch.update(docRef, updateData);
+  subcollectionData.forEach((data) => {
+    const subDocRef = data.id
+      ? docRef.collection(subcollection).doc(data.id)
+      : docRef.collection(subcollection).doc();
+    batch.set(subDocRef, data);
+  });
+  await batch.commit();
+}
