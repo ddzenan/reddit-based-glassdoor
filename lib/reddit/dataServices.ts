@@ -1,5 +1,5 @@
 import { Submission, BaseSearchOptions, Comment } from "snoowrap";
-import { redditClient } from "./reddit";
+import { redditClient } from "./redditClient";
 
 /**
  * Fetches top posts from a subreddit within a specified time period.
