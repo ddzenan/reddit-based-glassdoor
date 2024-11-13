@@ -19,7 +19,7 @@ export type SentimentType = (typeof SENTIMENTS)[keyof typeof SENTIMENTS];
  * @property {string} url - URL of the post.
  * @property {string} title - Title of the post.
  * @property {string} text - Body text of the post.
- * @property {string} [sentiment] - Sentiment analysis result for the post (e.g., "positive", "neutral", or "negative").
+ * @property {SentimentType} [sentiment] - Sentiment analysis result for the post (e.g., "positive", "neutral", or "negative").
  * @property {string[]} comments - Array containing the text of comments associated with the post.
  */
 export type RedditPostWithComments = {
@@ -31,7 +31,7 @@ export type RedditPostWithComments = {
   url: string;
   title: string;
   text: string;
-  sentiment?: string;
+  sentiment?: SentimentType;
   comments: string[];
 };
 
