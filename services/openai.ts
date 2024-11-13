@@ -123,7 +123,10 @@ function generateAnalysisPrompt(
         typeof companyName === "string"
           ? ` related to the employer ${companyName}`
           : "";
-      return `Analyze the sentiment${companyRelatedPart} using the ${postsAmount} given Reddit posts with comments, focusing on the experiences of employees/candidates related to salaries, interviews and general working conditions. For each post, please classify the sentiment as either 0 for positive, 1 for neutral, or 2 for negative. Please ensure that you return exactly ${postsAmount} classifications separated by commas without additional characters or words. Posts with comments:\n${postsWithCommentsText}`;
+      const sentimentInstructions = Object.entries(SENTIMENTS)
+        .map(([key, label]) => `${key} for ${label}`)
+        .join(", ");
+      return `Analyze the sentiment${companyRelatedPart} using the ${postsAmount} given Reddit posts with comments, focusing on the experiences of employees/candidates related to salaries, interviews and general working conditions. For each post, please classify the sentiment as either ${sentimentInstructions}. Please ensure that you return exactly ${postsAmount} classifications separated by commas without additional characters or words. Posts with comments:\n${postsWithCommentsText}`;
     case ANALYSIS_TYPES.companySummary:
       return `Based on the given Reddit posts about the company ${companyName}, write a brief summary that captures the general sentiment and conclusions of employees and applicants regarding working conditions, salary, benefits, and interview experiences. Instead of listing discussion topics, summarize the key insights and common opinions expressed in the posts and comments. Where applicable, provide conclusions on why employees or applicants view the company in a certain way (e.g., positive feedback about salary competitiveness, or concerns about work-life balance). The summary should feel as though the posts and comments have been thoroughly reviewed and the main points clearly conveyed, offering a well-rounded understanding of the company as an employer. The text may also contain additional insights or general information that contribute to a better understanding of the company as an employer. Make the summary objective and concise. Posts with comments:\n${postsWithCommentsText}`;
   }
