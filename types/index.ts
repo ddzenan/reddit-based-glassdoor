@@ -1,3 +1,5 @@
+import { ANALYSIS_TYPES } from "@/utils/constants";
+
 /**
  * Represents a Reddit post along with its comments and metadata.
  *
@@ -26,8 +28,7 @@ export type RedditPostWithComments = {
 };
 
 /**
- * Defines the types of analyses that can be performed on Reddit posts.
- * - "sentiments": Classifies the sentiment of posts as positive, neutral, or negative.
- * - "companySummary": Provides a summarized view of overall feedback related to a company.
+ * Represents the type of analysis to be performed on Reddit posts. Options are defined
+ * in `ANALYSIS_TYPES` and include, for example, sentiment analysis or generating a company summary.
  */
-export type AnalysisType = "sentiments" | "companySummary";
+export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];

@@ -1,7 +1,7 @@
 import { openaiClient } from "@/lib/openai";
 import ChatCompletion from "openai";
 import { RedditPostWithComments, AnalysisType } from "@/types";
-import { SENTIMENTS } from "@/utils/constants";
+import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
 
 /**
  * Represents the response from the OpenAI chat completion API.
@@ -13,12 +13,12 @@ import { SENTIMENTS } from "@/utils/constants";
 type ChatCompletionResponse = ChatCompletion.Chat.Completions.ChatCompletion;
 
 const API_CONFIG = {
-  sentiments: {
+  [ANALYSIS_TYPES.sentiments]: {
     model: "gpt-4o-mini",
     max_tokens: 100,
     temperature: 0.3,
   },
-  companySummary: {
+  [ANALYSIS_TYPES.companySummary]: {
     model: "gpt-4o-mini",
     max_tokens: 300,
     temperature: 1.0,
@@ -28,10 +28,11 @@ const API_CONFIG = {
 /**
  * Analyzes Reddit posts and comments based on the specified analysis type.
  *
- * @param analysisType - Type of analysis to perform, either "sentiments" for sentiment classification
- *                       or "companySummary" for generating a summary about the company.
+ * @param analysisType - Specifies the type of analysis to perform, using one of the options
+ * in `ANALYSIS_TYPES`, such as `"sentiments"` for sentiment analysis or `"companySummary"`
+ * for generating a company summary.
  * @param postsWithComments - Array of Reddit posts with associated comments to analyze.
- * @param companyName - (Optional) Name of the company, required if analysisType is "companySummary".
+ * @param companyName - (Optional) The company name, required for company-specific analysis.
  * @returns A promise that resolves to a string (company summary) or an array of posts with sentiment classifications.
  *
  * @throws Error if required data (e.g., company name for companySummary) is missing.
@@ -94,9 +95,11 @@ function convertPostsWithCommentsToText(
 /**
  * Generates a prompt for analyzing Reddit posts and comments based on the specified analysis type.
  *
- * @param analysisType - Type of analysis, either "sentiments" or "companySummary".
+ * @param analysisType - Specifies the type of analysis to perform, using one of the options
+ * in `ANALYSIS_TYPES`, such as `"sentiments"` for sentiment analysis or `"companySummary"` for
+ * generating a company summary.
  * @param postsWithComments - Array of Reddit posts with comments for analysis.
- * @param companyName - (Optional) Name of the company, required if analysisType is "companySummary".
+ * @param companyName - (Optional) Name of the company, required for company-specific prompts.
  * @returns A string prompt tailored to the specified analysis type.
  *
  * @throws Error if companyName is missing when analysisType is "companySummary".
@@ -106,19 +109,22 @@ function generateAnalysisPrompt(
   postsWithComments: RedditPostWithComments[],
   companyName?: string
 ): string {
-  if (typeof companyName === "undefined" && analysisType === "companySummary")
+  if (
+    typeof companyName === "undefined" &&
+    analysisType === ANALYSIS_TYPES.companySummary
+  )
     throw new Error("Company name is missing.");
   const postsWithCommentsText =
     convertPostsWithCommentsToText(postsWithComments);
   switch (analysisType) {
-    case "sentiments":
+    case ANALYSIS_TYPES.sentiments:
       const postsAmount = postsWithComments.length;
       const companyRelatedPart =
         typeof companyName === "string"
           ? ` related to the employer ${companyName}`
           : "";
       return `Analyze the sentiment${companyRelatedPart} using the ${postsAmount} given Reddit posts with comments, focusing on the experiences of employees/candidates related to salaries, interviews and general working conditions. For each post, please classify the sentiment as either 0 for positive, 1 for neutral, or 2 for negative. Please ensure that you return exactly ${postsAmount} classifications separated by commas without additional characters or words. Posts with comments:\n${postsWithCommentsText}`;
-    case "companySummary":
+    case ANALYSIS_TYPES.companySummary:
       return `Based on the given Reddit posts about the company ${companyName}, write a brief summary that captures the general sentiment and conclusions of employees and applicants regarding working conditions, salary, benefits, and interview experiences. Instead of listing discussion topics, summarize the key insights and common opinions expressed in the posts and comments. Where applicable, provide conclusions on why employees or applicants view the company in a certain way (e.g., positive feedback about salary competitiveness, or concerns about work-life balance). The summary should feel as though the posts and comments have been thoroughly reviewed and the main points clearly conveyed, offering a well-rounded understanding of the company as an employer. The text may also contain additional insights or general information that contribute to a better understanding of the company as an employer. Make the summary objective and concise. Posts with comments:\n${postsWithCommentsText}`;
   }
 }
@@ -126,7 +132,9 @@ function generateAnalysisPrompt(
 /**
  * Parses the response from OpenAI based on the specified analysis type.
  *
- * @param analysisType - Type of analysis, either "sentiments" or "companySummary".
+ * @param analysisType - Specifies the type of analysis to interpret, using one of the options
+ * in `ANALYSIS_TYPES`, such as `"sentiments"` for sentiment analysis or `"companySummary"` for a
+ * general company summary.
  * @param response - Response received from OpenAI API containing the analysis results.
  * @param postsWithComments - (Optional) Original array of Reddit posts, required if analysisType is "sentiments".
  * @returns Either a string (company summary) or an array of Reddit posts with added sentiment classifications.
@@ -143,7 +151,7 @@ function parseAnalysisResponse(
     throw new Error("No content received from OpenAI API.");
   }
   switch (analysisType) {
-    case "sentiments":
+    case ANALYSIS_TYPES.sentiments:
       if (typeof postsWithComments === "undefined")
         throw new Error("The array of posts with comments is missing.");
       return responseContent
@@ -161,7 +169,7 @@ function parseAnalysisResponse(
             sentiment: SENTIMENTS[key],
           };
         });
-    case "companySummary":
+    case ANALYSIS_TYPES.companySummary:
       return responseContent;
   }
 }
