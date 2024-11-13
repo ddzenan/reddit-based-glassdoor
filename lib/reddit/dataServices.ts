@@ -14,3 +14,25 @@ export async function getTopPosts(
 ): Promise<Submission[]> {
   return await redditClient.getSubreddit(subreddit).getTop({ time });
 }
+
+/**
+ * Searches posts in a subreddit based on a search term and sorting options.
+ *
+ * @param subreddit - The subreddit to search in.
+ * @param searchTerm - The search term to filter posts by.
+ * @param time - The time filter for posts.
+ * @param sort - The sorting option for posts.
+ * @returns A promise that resolves to an array of posts.
+ */
+export async function searchPosts(
+  subreddit: string,
+  searchTerm: string,
+  time: BaseSearchOptions["time"],
+  sort: BaseSearchOptions["sort"]
+): Promise<Submission[]> {
+  return await redditClient.getSubreddit(subreddit).search({
+    query: searchTerm,
+    time,
+    sort,
+  });
+}

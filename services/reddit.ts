@@ -1,7 +1,6 @@
-import { redditClient } from "@/lib/reddit/reddit";
 import { Submission, Comment, BaseSearchOptions } from "snoowrap";
 import { RedditPostWithComments } from "@/types";
-import { getTopPosts } from "@/lib/reddit/dataServices";
+import { getTopPosts, searchPosts } from "@/lib/reddit/dataServices";
 
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
@@ -29,15 +28,9 @@ export async function fetchPostsAndComments({
   time?: BaseSearchOptions["time"];
   sort?: BaseSearchOptions["sort"];
 } = {}): Promise<RedditPostWithComments[]> {
-  let posts = [];
-
-  if (typeof searchTerm !== "undefined") {
-    posts = await redditClient.getSubreddit(subreddit).search({
-      query: searchTerm,
-      time,
-      sort,
-    });
-  } else posts = await getTopPosts(subreddit, time);
+  const posts = searchTerm
+    ? await searchPosts(subreddit, searchTerm, time, sort)
+    : await getTopPosts(subreddit, time);
 
   return await Promise.all(
     posts.map(async (post) => {
