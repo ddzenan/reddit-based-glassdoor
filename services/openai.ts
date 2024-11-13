@@ -28,8 +28,6 @@ const API_CONFIG = {
  * @param postsWithComments - Array of Reddit posts with associated comments to analyze.
  * @param companyName - (Optional) The company name, required for company-specific analysis.
  * @returns A promise that resolves to a string (company summary) or an array of posts with sentiment classifications.
- *
- * @throws Error if required data (e.g., company name for companySummary) is missing.
  */
 export async function analyzeRedditPosts(
   analysisType: AnalysisType,
