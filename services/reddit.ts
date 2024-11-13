@@ -1,4 +1,4 @@
-import { redditClient } from "@/lib/reddit";
+import { redditClient } from "@/lib/reddit/reddit";
 import { Submission, Comment, BaseSearchOptions } from "snoowrap";
 import { RedditPostWithComments } from "@/types";
 
