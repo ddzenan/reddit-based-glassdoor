@@ -9,12 +9,13 @@ const DEFAULT_COMMENTS_AMOUNT = 5;
 
 /**
  * Fetches posts and their comments from a specified subreddit.
- * @param {Object} options - Options for fetching posts.
- * @param {string} [options.searchTerm] - Optional search term to filter posts by.
- * @param {string} [options.subreddit=DEFAULT_SUBREDDIT] - Subreddit name.
- * @param {string} [options.time=DEFAULT_POSTS_TIME_PERIOD] - Time filter for posts.
- * @param {string} [options.sort=DEFAULT_POSTS_SORT_OPTION] - Sorting option for posts.
- * @returns {Promise<RedditPostWithComments[]>} - Array of posts with comments.
+ *
+ * @param options - Options for fetching posts.
+ * @param options.searchTerm - Optional search term to filter posts by.
+ * @param options.subreddit - Subreddit name.
+ * @param options.time - Time filter for posts.
+ * @param options.sort - Sorting option for posts.
+ * @returns Array of posts with comments.
  */
 export async function fetchPostsAndComments({
   searchTerm,
@@ -59,9 +60,10 @@ export async function fetchPostsAndComments({
 
 /**
  * Fetches a specified number of comments for a given post.
- * @param {Submission} post - Reddit post to retrieve comments for.
- * @param {number} [amount=DEFAULT_COMMENTS_AMOUNT] - Number of comments to fetch.
- * @returns {Promise<string[]>} - Array of strings representing comments.
+ *
+ * @param post - Reddit post to retrieve comments for.
+ * @param amount - Number of comments to fetch.
+ * @returns Array of strings representing comments.
  */
 async function fetchCommentsForPost(
   post: Submission,

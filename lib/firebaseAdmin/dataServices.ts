@@ -3,10 +3,10 @@ import { firestore } from "./firebaseAdmin";
 /**
  * Fetches documents from a Firestore collection based on a specific field and its value.
  *
- * @param {string} collection - The name of the Firestore collection to query.
- * @param {string} field - The name of the field to filter documents by.
- * @param {unknown} value - The value of the field to match documents against, allowing any data type Firestore supports.
- * @returns {Promise<Record<string, unknown>[] | undefined>} - A promise that resolves to the objects that match the query, or undefined if no matching documents are found.
+ * @param collection - The name of the Firestore collection to query.
+ * @param field - The name of the field to filter documents by.
+ * @param value - The value of the field to match documents against, allowing any data type Firestore supports.
+ * @returns A promise that resolves to the objects that match the query, or undefined if no matching documents are found.
  */
 export async function getDocumentsByField(
   collection: string,

@@ -62,8 +62,8 @@ export async function analyzeRedditPosts(
 /**
  * Converts an array of Reddit comments to a single text block.
  *
- * @param {string[]} comments - Array of Reddit comments.
- * @returns {string} - Formatted string representation of comments.
+ * @param comments - Array of Reddit comments.
+ * @returns Formatted string representation of comments.
  */
 function convertCommentsToText(comments: string[]): string {
   return comments
@@ -74,8 +74,8 @@ function convertCommentsToText(comments: string[]): string {
 /**
  * Converts an array of Reddit posts with comments to a single text block.
  *
- * @param {RedditPostWithComments[]} postsWithComments - Array of Reddit posts with their comments.
- * @returns {string} - Formatted string representation of posts with comments.
+ * @param postsWithComments - Array of Reddit posts with their comments.
+ * @returns Formatted string representation of posts with comments.
  */
 function convertPostsWithCommentsToText(
   postsWithComments: RedditPostWithComments[]
