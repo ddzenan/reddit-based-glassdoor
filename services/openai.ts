@@ -1,4 +1,4 @@
-import { openaiClient } from "@/lib/openai";
+import { openaiClient } from "@/lib/openai/openaiClient";
 import ChatCompletion from "openai";
 import { RedditPostWithComments, AnalysisType } from "@/types";
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
