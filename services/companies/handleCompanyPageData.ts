@@ -1,10 +1,11 @@
 import {
   getDocumentsByField,
   updateDocumentAndAddToSubcollection,
+  fetchAllDocuments,
 } from "@/lib/firebaseAdmin/dataServices";
 import { fetchPostsAndComments } from "../reddit/fetchPostsAndComments";
 import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
-import { RedditPostWithComments, Company } from "@/types";
+import { RedditPostWithComments, Company, ReducedRedditPost } from "@/types";
 import { countSentiments } from "@/utils/helpers";
 import { ANALYSIS_TYPES } from "@/utils/constants";
 import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
@@ -19,16 +20,25 @@ import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
  *
  * @throws Throws error if no company matches the provided slug or if data fetching fails.
  */
-export async function handleCompanyPageData(slug: string): Promise<Company> {
+export async function handleCompanyPageData(slug: string): Promise<{
+  company: Company;
+  redditPosts: ReducedRedditPost[];
+}> {
   const companies = await getDocumentsByField("companies", "slug", slug);
   if (!companies || companies.length === 0)
     throw new Error(`There is no company with slug ${slug}.`);
   let company = companies[0] as Company;
   const { id: companyId, name: companyName, summary: companySummary } = company;
+  let reducedRedditPosts: ReducedRedditPost[] = [];
   if (!companySummary) {
     const redditPosts = await fetchPostsAndComments({
       searchTerm: companyName,
     });
+    reducedRedditPosts = redditPosts.map(({ title, text, url }) => ({
+      title,
+      text,
+      url,
+    }));
     const [summary, redditPostsWithSentiments] = await Promise.all([
       analyzeRedditPosts(
         ANALYSIS_TYPES.companySummary,
@@ -53,8 +63,14 @@ export async function handleCompanyPageData(slug: string): Promise<Company> {
       "redditPosts",
       redditPostsWithSentiments
     );
+  } else {
+    reducedRedditPosts = await fetchAllDocuments(
+      `companies/${companyId}/redditPosts`,
+      ["title", "text", "url"]
+    );
   }
   const logo = await fetchClearbitLogo(slug);
   if (logo) company = { ...company, logo };
-  return company;
+
+  return { company: company, redditPosts: reducedRedditPosts };
 }
