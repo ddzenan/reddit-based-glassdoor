@@ -1,4 +1,5 @@
 import { firestore } from "./firebaseAdmin";
+import { firestore as firestoreAdmin } from "firebase-admin";
 
 /**
  * Fetches documents from a Firestore collection based on a specific field and its value.
@@ -52,4 +53,31 @@ export async function updateDocumentAndAddToSubcollection(
     batch.set(subDocRef, data);
   });
   await batch.commit();
+}
+
+/**
+ * Fetches all documents from a Firestore collection or subcollection based on a specified field.
+ *
+ * @param collectionPath - Path to the Firestore collection (e.g., "/companies" or "/companies/{companyId}/redditPosts").
+ * @param selectFields - Optional array of field names to include in the query results.
+ * @returns A promise that resolves to an array of documents, each containing only the specified fields or all fields if none are specified.
+ */
+export async function fetchAllDocuments<T = Record<string, any>>(
+  collectionPath: string,
+  selectFields?: (keyof T)[]
+): Promise<T[]> {
+  const collectionRef = firestore.collection(collectionPath);
+  let query = collectionRef as firestoreAdmin.Query<T>;
+
+  if (selectFields && selectFields.length > 0)
+    query = query.select(...(selectFields as string[]));
+
+  const snapshot = await query.get();
+  if (snapshot.empty) {
+    return [];
+  }
+
+  return snapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }));
 }
