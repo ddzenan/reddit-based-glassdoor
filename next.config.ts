@@ -1,11 +1,22 @@
 const nextConfig = {
   images: {
-    domains: [
-      process.env.NEXT_PUBLIC_URL || "",
-      "firebasestorage.googleapis.com",
-      "logo.clearbit.com",
-    ].filter(Boolean),
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: process.env.NEXT_PUBLIC_URL || "",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "logo.clearbit.com",
+        pathname: "/**",
+      },
+    ].filter((pattern) => pattern.hostname),
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
