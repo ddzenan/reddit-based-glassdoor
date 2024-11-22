@@ -28,7 +28,12 @@ export async function handleCompanyPageData(slug: string): Promise<{
   if (!companies || companies.length === 0)
     throw new Error(`There is no company with slug ${slug}.`);
   let company = companies[0] as Company;
-  const { id: companyId, name: companyName, summary: companySummary } = company;
+  const {
+    id: companyId,
+    name: companyName,
+    summary: companySummary,
+    website,
+  } = company;
   let reducedRedditPosts: ReducedRedditPost[] = [];
   if (!companySummary) {
     const redditPosts = await fetchPostsAndComments({
@@ -69,8 +74,9 @@ export async function handleCompanyPageData(slug: string): Promise<{
       ["title", "text", "url"]
     );
   }
-  const logo = await fetchClearbitLogo(slug);
-  if (logo) company = { ...company, logo };
-
+  if (website) {
+    const logo = await fetchClearbitLogo(website);
+    if (logo) company = { ...company, logo };
+  }
   return { company: company, redditPosts: reducedRedditPosts };
 }
