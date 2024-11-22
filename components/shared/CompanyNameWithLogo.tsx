@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CompanyNameWithLogoProps } from "@/types";
+import { CiImageOn } from "react-icons/ci";
 
 const SIZE_CONFIG = {
   sm: {
@@ -35,13 +36,17 @@ export default function CompanyNameWithLogo({
 
   return (
     <div className="flex items-center space-x-4">
-      <Image
-        src={logo || "/placeholder-logo.png"}
-        alt={`${name} Logo`}
-        width={imgSize}
-        height={imgSize}
-        className="rounded-md"
-      />
+      {typeof logo !== "undefined" ? (
+        <Image
+          src={logo}
+          alt={`${name} Logo`}
+          width={imgSize}
+          height={imgSize}
+          className="rounded-md"
+        />
+      ) : (
+        <CiImageOn className="text-foreground rounded-md" size={imgSize} />
+      )}
       <h1 className={`${textClass} text-foreground`}>{name}</h1>
     </div>
   );
