@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: [
+      process.env.NEXT_PUBLIC_URL as string,
+      "firebasestorage.googleapis.com",
+      "logo.clearbit.com",
+    ],
+  },
 };
 
 export default nextConfig;
