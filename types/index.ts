@@ -54,6 +54,9 @@ export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
  * @property {number} [negativeSentiments] - The count of negative sentiments related to the company (optional).
  * @property {number} [neutralSentiments] - The count of neutral sentiments related to the company (optional).
  * @property {string} [summary] - A brief summary of the company, based on Reddit posts (optional).
+ * @property {number} [yearFounded] - The year the company was founded.
+ * @property {string} [numberOfEmployees] - The total number of employees in the company.
+ * @property {string} [estimatedRevenue] - The company's estimated annual revenue.
  */
 export type Company = {
   id: string;
@@ -65,6 +68,9 @@ export type Company = {
   negativeSentiments?: number;
   neutralSentiments?: number;
   summary?: string;
+  yearFounded?: number;
+  numberOfEmployees?: string;
+  estimatedRevenue?: string;
 };
 
 /**
@@ -96,12 +102,10 @@ export type CompanyNameWithLogoProps = Pick<Company, "name" | "logo"> & {
  * @property {string} [numberOfEmployees] - The total number of employees in the company.
  * @property {string} [estimatedRevenue] - The company's estimated annual revenue.
  */
-export type BasicCompanyDataProps = {
-  website?: string;
-  yearFounded?: number;
-  numberOfEmployees?: string;
-  estimatedRevenue?: string;
-};
+export type BasicCompanyDataProps = Pick<
+  Company,
+  "website" | "yearFounded" | "numberOfEmployees" | "estimatedRevenue"
+>;
 
 /**
  * Props for the `CompanyCard` component.
