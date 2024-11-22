@@ -25,3 +25,14 @@ export function countSentiments(
     return acc;
   }, initialCounts);
 }
+
+/**
+ * Trims the provided text to a maximum length and appends an ellipsis.
+ *
+ * @param text - The text to be shortened.
+ * @param maxLength - The maximum length of the text.
+ * @returns A shortened version of the text.
+ */
+export function truncateText(text: string, maxLength: number): string {
+  return `${text.slice(0, maxLength)}...`;
+}
