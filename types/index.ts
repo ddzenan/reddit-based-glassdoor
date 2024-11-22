@@ -76,3 +76,14 @@ export type Company = {
  */
 export type ChatCompletionResponse =
   ChatCompletion.Chat.Completions.ChatCompletion;
+
+/**
+ * Props for the CompanyNameWithLogo component.
+ *
+ * @property {string} name - The name of the company.
+ * @property {string | null} logo - The URL of the company's logo.
+ * @property {"sm" | "md" | "lg"} [size] - The size of the component, which determines the logo dimensions and text styling.
+ */
+export type CompanyNameWithLogoProps = Pick<Company, "name" | "logo"> & {
+  size?: "sm" | "md" | "lg";
+};
