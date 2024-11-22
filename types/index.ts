@@ -87,3 +87,18 @@ export type ChatCompletionResponse =
 export type CompanyNameWithLogoProps = Pick<Company, "name" | "logo"> & {
   size?: "sm" | "md" | "lg";
 };
+
+/**
+ * Props for the `BasicCompanyData` component.
+ *
+ * @property {string} [website] - The website of the company.
+ * @property {number} [yearFounded] - The year the company was founded.
+ * @property {string} [numberOfEmployees] - The total number of employees in the company.
+ * @property {string} [estimatedRevenue] - The company's estimated annual revenue.
+ */
+export type BasicCompanyDataProps = {
+  website?: string;
+  yearFounded?: number;
+  numberOfEmployees?: string;
+  estimatedRevenue?: string;
+};
