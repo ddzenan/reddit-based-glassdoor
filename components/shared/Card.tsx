@@ -30,7 +30,7 @@ type CardProps = {
  */
 export default function Card({ title, description, children }: CardProps) {
   return (
-    <DefaultCard className="w-full my-4 p-8">
+    <DefaultCard className="w-full my-4 p-4 sm:p-8">
       {(title || description) && (
         <CardHeader className="p-0 mb-4">
           {title && (
