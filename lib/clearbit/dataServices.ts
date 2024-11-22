@@ -11,12 +11,14 @@ const BASE_URL = "https://logo.clearbit.com";
 export async function fetchClearbitLogo(
   website: string
 ): Promise<string | null> {
+  if (!website) return null;
   try {
-    const logoUrl = `${BASE_URL}/${website}`;
+    const hostname = new URL(website).hostname;
+    const logoUrl = `${BASE_URL}/${hostname}`;
     const response = await fetch(logoUrl);
-    const status = response.status;
-    if (status === 200) return logoUrl;
-  } finally {
+    if (!response.ok) return null;
+    return logoUrl;
+  } catch (error) {
     return null;
   }
 }
