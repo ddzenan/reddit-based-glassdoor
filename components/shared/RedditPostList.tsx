@@ -2,19 +2,10 @@
 
 import Card from "@/components/shared/Card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { RedditPostWithComments } from "@/types";
+import { ReducedRedditPost } from "@/types";
 import { truncateText } from "@/utils/helpers";
 
 const TEXT_MAX_LENGTH = 200;
-
-/**
- * Represents a reduced version of a Reddit post, containing only the necessary fields.
- *
- * @property {string} title - The title of the Reddit post.
- * @property {string} text - The text content of the Reddit post.
- * @property {string} url - The URL of the Reddit post.
- */
-type ReducedRedditPost = Pick<RedditPostWithComments, "title" | "text" | "url">;
 
 /**
  * Props for the `RedditPostList` component.

@@ -111,3 +111,15 @@ export type BasicCompanyDataProps = {
  * @property {string} slug - The unique identifier for the company used in its URL.
  */
 export type CompanyCardProps = Pick<Company, "name" | "logo" | "slug">;
+
+/**
+ * Represents a reduced version of a Reddit post, containing only the necessary fields.
+ *
+ * @property {string} title - The title of the Reddit post.
+ * @property {string} text - The text content of the Reddit post.
+ * @property {string} url - The URL of the Reddit post.
+ */
+export type ReducedRedditPost = Pick<
+  RedditPostWithComments,
+  "title" | "text" | "url"
+>;
