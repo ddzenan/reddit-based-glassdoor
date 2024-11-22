@@ -102,3 +102,12 @@ export type BasicCompanyDataProps = {
   numberOfEmployees?: string;
   estimatedRevenue?: string;
 };
+
+/**
+ * Props for the `CompanyCard` component.
+ *
+ * @property {string} name - The name of the company.
+ * @property {string} logo - The URL of the company's logo.
+ * @property {string} slug - The unique identifier for the company used in its URL.
+ */
+export type CompanyCardProps = Pick<Company, "name" | "logo" | "slug">;
