@@ -7,6 +7,7 @@ import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
 import { RedditPostWithComments, Company } from "@/types";
 import { countSentiments } from "@/utils/helpers";
 import { ANALYSIS_TYPES } from "@/utils/constants";
+import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
 
 /**
  * Retrieves and prepares company data for a company page based on the provided slug.
@@ -53,5 +54,7 @@ export async function handleCompanyPageData(slug: string): Promise<Company> {
       redditPostsWithSentiments
     );
   }
+  const logo = await fetchClearbitLogo(slug);
+  if (logo) company = { ...company, logo };
   return company;
 }

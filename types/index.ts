@@ -48,6 +48,7 @@ export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
  * @property {string} id - Unique identifier for the company.
  * @property {string} slug - URL-friendly identifier for the company, used in the company's URL.
  * @property {string} name - The name of the company.
+ * @property {string} [logo] - The URL of the company's logo.
  * @property {string} [website] - The company's official website URL (optional).
  * @property {number} [positiveSentiments] - The count of positive sentiments related to the company (optional).
  * @property {number} [negativeSentiments] - The count of negative sentiments related to the company (optional).
@@ -58,6 +59,7 @@ export type Company = {
   id: string;
   slug: string;
   name: string;
+  logo?: string;
   website?: string;
   positiveSentiments?: number;
   negativeSentiments?: number;
