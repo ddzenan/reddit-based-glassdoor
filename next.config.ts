@@ -1,13 +1,11 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   images: {
     domains: [
-      process.env.NEXT_PUBLIC_URL as string,
+      process.env.NEXT_PUBLIC_URL || "",
       "firebasestorage.googleapis.com",
       "logo.clearbit.com",
-    ],
+    ].filter(Boolean),
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
