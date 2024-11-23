@@ -66,19 +66,4 @@
   body {
     @apply bg-background text-foreground;
   }
-  h1 {
-    @apply text-4xl font-bold text-foreground;
-  }
-  h2 {
-    @apply text-3xl font-semibold text-foreground;
-  }
-  h3 {
-    @apply text-2xl font-medium text-foreground;
-  }
-  p {
-    @apply text-base text-foreground leading-relaxed;
-  }
-  a {
-    @apply text-primary underline hover:text-primary-foreground;
-  }
 }
