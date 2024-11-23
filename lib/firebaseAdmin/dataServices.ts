@@ -81,3 +81,22 @@ export async function getAllDocuments<T = Record<string, any>>(
     ...doc.data(),
   }));
 }
+
+/**
+ * Fetches a single document from Firestore based on its path.
+ *
+ * @param path - The full Firestore path to the document (e.g., "collectionName/documentId").
+ * @returns A promise that resolves to the document data or undefined if the document does not exist.
+ */
+export async function getDocumentByPath(
+  path: string
+): Promise<Record<string, unknown> | undefined> {
+  const docRef = firestore.doc(path);
+  const docSnapshot = await docRef.get();
+
+  if (!docSnapshot.exists) {
+    return undefined;
+  }
+
+  return docSnapshot.data();
+}
