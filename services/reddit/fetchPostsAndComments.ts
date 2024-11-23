@@ -9,7 +9,8 @@ import {
 const DEFAULT_SUBREDDIT = "cscareerquestions";
 const DEFAULT_POSTS_TIME_PERIOD = "year";
 const DEFAULT_POSTS_SORT_OPTION = "new";
-const COMMENTS_AMOUNT = 5;
+const BASIC_POSTS_COMMENTS_AMOUNT = 5;
+const TOP_POSTS_COMMENTS_AMOUNT = 15;
 
 const DELETED_COMMENTS_KEYWORS = ["[deleted]", "[removed]"];
 
@@ -38,10 +39,14 @@ export async function fetchPostsAndComments({
     ? await searchPosts(subreddit, searchTerm, time, sort)
     : await getTopPosts(subreddit, time);
 
+  const commentsAmount = searchTerm
+    ? BASIC_POSTS_COMMENTS_AMOUNT
+    : TOP_POSTS_COMMENTS_AMOUNT;
+
   return await Promise.all(
     posts.map(async (post) => {
       const fetchedComments = await fetchCommentsForPost(post);
-      const filteredComments = filterComments(fetchedComments, COMMENTS_AMOUNT);
+      const filteredComments = filterComments(fetchedComments, commentsAmount);
       return {
         id: post.id,
         created: post.created_utc,
