@@ -4,6 +4,7 @@ import Card from "@/components/shared/Card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { truncateText } from "@/utils/helpers";
+import ReactMarkdown from "react-markdown";
 
 const SHORT_TEXT_MAX_LENGTH = 600;
 
@@ -40,7 +41,9 @@ export default function ExpandableTextWithTitle({
 
   return (
     <Card title={title}>
-      <p className="text-sm text-muted-foreground">{displayedText}</p>
+      <div className="text-sm text-muted-foreground">
+        <ReactMarkdown>{displayedText}</ReactMarkdown>
+      </div>
       <Button
         variant="outline"
         className="mt-4 text-xs font-normal"
