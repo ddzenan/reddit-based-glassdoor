@@ -17,6 +17,11 @@ const API_CONFIG = {
     max_tokens: 300,
     temperature: 1.0,
   },
+  [ANALYSIS_TYPES.techIndustrySummary]: {
+    model: "gpt-4o-mini",
+    max_tokens: 2000,
+    temperature: 1.0,
+  },
 };
 
 /**
@@ -113,6 +118,16 @@ function generateAnalysisPrompt(
       return `Analyze the sentiment${companyRelatedPart} using the ${postsAmount} given Reddit posts with comments, focusing on the experiences of employees/candidates related to salaries, interviews and general working conditions. For each post, please classify the sentiment as either ${sentimentInstructions}. Please ensure that you return exactly ${postsAmount} classifications separated by commas without additional characters or words. Posts with comments:\n${postsWithCommentsText}`;
     case ANALYSIS_TYPES.companySummary:
       return `Based on the given Reddit posts about the company ${companyName}, write a brief summary that captures the general sentiment and conclusions of employees and applicants regarding working conditions, salary, benefits, and interview experiences. Instead of listing discussion topics, summarize the key insights and common opinions expressed in the posts and comments. Where applicable, provide conclusions on why employees or applicants view the company in a certain way (e.g., positive feedback about salary competitiveness, or concerns about work-life balance). The summary should feel as though the posts and comments have been thoroughly reviewed and the main points clearly conveyed, offering a well-rounded understanding of the company as an employer. The text may also contain additional insights or general information that contribute to a better understanding of the company as an employer. Make the summary objective and concise. Posts with comments:\n${postsWithCommentsText}`;
+    case ANALYSIS_TYPES.techIndustrySummary:
+      return `Analyze the following Reddit posts and comments from a subreddit focused on the tech industry. Provide a detailed and objective summary that captures the general sentiment, key topics of discussion, and any notable trends or recurring themes. Focus on insights relevant to professionals in the tech industry, such as:
+      - **Job market conditions**: Challenges and opportunities in finding jobs, insights for beginners versus experienced professionals, and the current state of hiring in tech companies.
+      - **Salary and benefits**: Opinions on salary competitiveness, perks, work-life balance, and company policies that are frequently discussed.
+      - **Trends in the industry**: Emerging technologies, changes in popular companies, and any shifts in demand for specific skills or roles.
+      - **Company culture and reputation**: Recurring opinions about specific companies, including feedback on management, team dynamics, or work environments.
+      - **Layoffs or industry downturns**: Discussions about layoffs, economic challenges, and their impact on the tech industry.
+      - **Advice and shared experiences**: Valuable insights or shared personal stories from professionals, including tips for navigating the industry or transitioning into new roles.      
+      Ensure the summary is well-structured, concise, and provides a comprehensive overview that would be valuable for tech professionals seeking insights into the current state of the industry. Where applicable, identify reasons behind prevailing opinions and trends. Posts with comments:\n${postsWithCommentsText}
+      `;
   }
 }
 
@@ -124,7 +139,7 @@ function generateAnalysisPrompt(
  * general company summary.
  * @param response - Response received from OpenAI API containing the analysis results.
  * @param postsWithComments - (Optional) Original array of Reddit posts, required if analysisType is "sentiments".
- * @returns Either a string (company summary) or an array of Reddit posts with added sentiment classifications.
+ * @returns Either a string (i.e. company summary or subreddit summary) or an array of Reddit posts with added sentiment classifications.
  *
  * @throws Error if response content is missing or if data required for sentiment mapping is unavailable.
  */
@@ -157,6 +172,8 @@ function parseAnalysisResponse(
           };
         });
     case ANALYSIS_TYPES.companySummary:
+      return responseContent;
+    case ANALYSIS_TYPES.techIndustrySummary:
       return responseContent;
   }
 }

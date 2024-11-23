@@ -7,6 +7,7 @@ export const SENTIMENTS = {
 export const ANALYSIS_TYPES = {
   sentiments: "sentiments",
   companySummary: "companySummary",
+  techIndustrySummary: "techIndustrySummary",
 } as const;
 
 export const BASIC_COMPANY_DATA_FIELDS = {
