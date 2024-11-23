@@ -1,4 +1,4 @@
-import { fetchAllDocuments } from "@/lib/firebaseAdmin/dataServices";
+import { getAllDocuments } from "@/lib/firebaseAdmin/dataServices";
 import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
 import { CompanyCardProps } from "@/types";
 
@@ -8,7 +8,7 @@ import { CompanyCardProps } from "@/types";
  * @returns A promise that resolves to an array of company objects that contains name, slug and logo.
  */
 export async function handleCompaniesPageData(): Promise<CompanyCardProps[]> {
-  const companies = await fetchAllDocuments("companies", [
+  const companies = await getAllDocuments("companies", [
     "name",
     "slug",
     "website",

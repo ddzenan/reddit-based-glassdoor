@@ -62,7 +62,7 @@ export async function updateDocumentAndAddToSubcollection(
  * @param selectFields - Optional array of field names to include in the query results.
  * @returns A promise that resolves to an array of documents, each containing only the specified fields or all fields if none are specified.
  */
-export async function fetchAllDocuments<T = Record<string, any>>(
+export async function getAllDocuments<T = Record<string, any>>(
   collectionPath: string,
   selectFields?: (keyof T)[]
 ): Promise<T[]> {

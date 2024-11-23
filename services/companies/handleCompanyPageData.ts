@@ -1,7 +1,7 @@
 import {
   getDocumentsByField,
   updateDocumentAndAddToSubcollection,
-  fetchAllDocuments,
+  getAllDocuments,
 } from "@/lib/firebaseAdmin/dataServices";
 import { fetchPostsAndComments } from "../reddit/fetchPostsAndComments";
 import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
@@ -69,7 +69,7 @@ export async function handleCompanyPageData(slug: string): Promise<{
       redditPostsWithSentiments
     );
   } else {
-    reducedRedditPosts = await fetchAllDocuments(
+    reducedRedditPosts = await getAllDocuments(
       `companies/${companyId}/redditPosts`,
       ["title", "text", "url"]
     );
