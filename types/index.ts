@@ -69,7 +69,7 @@ export type Company = {
   neutralSentiments?: number;
   summary?: string;
   yearFounded?: number;
-  numberOfEmployees?: string;
+  numberOfEmployees?: number;
   estimatedRevenue?: string;
 };
 
