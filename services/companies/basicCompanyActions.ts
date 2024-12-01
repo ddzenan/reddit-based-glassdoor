@@ -1,4 +1,4 @@
-import { getDocument } from "@/lib/firebaseClient/dataServices";
+import { getDocument, saveDocument } from "@/lib/firebaseClient/dataServices";
 import { Company } from "@/types";
 
 /**
@@ -14,4 +14,20 @@ export async function fetchCompany(
   selectFields?: (keyof Company)[]
 ): Promise<Company | undefined> {
   return getDocument<Company>(`/companies/${companyId}`, selectFields);
+}
+
+/**
+ * Saves a company document to Firestore.
+ * Optionally, an existing company document can be updated by providing the company ID.
+ *
+ * @param data - The company data to be saved.
+ * @param companyId - An optional ID for the company document. If not provided, a new document will be created.
+ * @returns A promise that resolves when the company document is saved.
+ */
+export async function saveCompany(data: Company, companyId?: string) {
+  return await saveDocument({
+    collectionPath: "companies",
+    id: companyId,
+    data: data,
+  });
 }
