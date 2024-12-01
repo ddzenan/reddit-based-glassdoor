@@ -53,3 +53,39 @@ export function generateSlug(text: string): string {
     .replace(/^-+/, "")
     .replace(/-+$/, "");
 }
+
+/**
+ * Transform an object to ensure all keys from the given array exist in the output,
+ * replacing `undefined` with `null` and adding missing keys with `null` values.
+ *
+ * @param data - The input object with original data.
+ * @param keys - An array of keys to enforce in the output object.
+ * @returns A new object with `undefined` values replaced by `null` and missing keys added as `null`.
+ */
+export function transformToNull(
+  data: Record<string, any>,
+  keys: string[]
+): Record<string, any> {
+  const result: Record<string, any> = {};
+  keys.forEach((key) => {
+    result[key] = data[key] === undefined ? null : data[key];
+  });
+  return result;
+}
+
+/**
+ * Transform an object to replace all `null` values with `undefined`.
+ *
+ * @param data - The input object with original data.
+ * @returns A new object with `null` values replaced by `undefined`.
+ */
+export function transformToUndefined(
+  data: Record<string, any>
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [
+      key,
+      value === null ? undefined : value,
+    ])
+  );
+}
