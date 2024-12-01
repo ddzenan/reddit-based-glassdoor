@@ -2,6 +2,7 @@ import {
   getDocument,
   saveDocument,
   searchDocumentsByField,
+  deleteDocument,
 } from "@/lib/firebaseClient/dataServices";
 import { Company } from "@/types";
 
@@ -48,4 +49,15 @@ export async function searchCompaniesByName(
   selectFields?: (keyof Company)[]
 ): Promise<Record<string, any>[]> {
   return searchDocumentsByField("companies", "name", companyName, selectFields);
+}
+
+/**
+ * Deletes a company document from Firestore.
+ *
+ * @param companyId - The ID of the company to be deleted.
+ * @returns A promise that resolves when the company is deleted.
+ */
+export async function deleteCompany(companyId: string): Promise<void> {
+  const docPath = `companies/${companyId}`;
+  await deleteDocument(docPath);
 }
