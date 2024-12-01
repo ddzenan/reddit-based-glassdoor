@@ -1,4 +1,4 @@
-import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
+import { SENTIMENTS, ANALYSIS_TYPES, REVENUE_OPTIONS } from "@/utils/constants";
 import ChatCompletion from "openai";
 
 /**
@@ -43,6 +43,11 @@ export type RedditPostWithComments = {
 export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
 
 /**
+ * Represents the type of revenue options for a company.
+ */
+export type RevenueOptionsType = (typeof REVENUE_OPTIONS)[number];
+
+/**
  * Represents a company with relevant metadata.
  *
  * @property {string} id - Unique identifier for the company.
@@ -56,7 +61,7 @@ export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
  * @property {string} [summary] - A brief summary of the company, based on Reddit posts (optional).
  * @property {number} [yearFounded] - The year the company was founded.
  * @property {string} [numberOfEmployees] - The total number of employees in the company.
- * @property {string} [estimatedRevenue] - The company's estimated annual revenue.
+ * @property {RevenueOptionsType} [estimatedRevenue] - The company's estimated annual revenue.
  */
 export type Company = {
   id: string;
@@ -70,7 +75,7 @@ export type Company = {
   summary?: string;
   yearFounded?: number;
   numberOfEmployees?: number;
-  estimatedRevenue?: string;
+  estimatedRevenue?: RevenueOptionsType;
 };
 
 /**
