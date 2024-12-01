@@ -36,3 +36,20 @@ export function countSentiments(
 export function truncateText(text: string, maxLength: number): string {
   return `${text.slice(0, maxLength)}...`;
 }
+
+/**
+ * Generates a slug from the provided text.
+ *
+ * @param text - The text to be converted to a slug.
+ * @returns A slug version of the text.
+ */
+export function generateSlug(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\u0100-\uFFFF\w\-]/g, "-")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+}
