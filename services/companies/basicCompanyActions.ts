@@ -1,4 +1,8 @@
-import { getDocument, saveDocument } from "@/lib/firebaseClient/dataServices";
+import {
+  getDocument,
+  saveDocument,
+  searchDocumentsByField,
+} from "@/lib/firebaseClient/dataServices";
 import { Company } from "@/types";
 
 /**
@@ -30,4 +34,18 @@ export async function saveCompany(data: Company, companyId?: string) {
     id: companyId,
     data: data,
   });
+}
+
+/**
+ * Fetches companies from Firestore based on name.
+ *
+ * @param companyName - The name of the company to search for.
+ * @param selectFields - An optional array of field names to retrieve from the company documents.
+ * @returns A promise that resolves to an array of company documents that match the name.
+ */
+export async function searchCompaniesByName(
+  companyName: string,
+  selectFields?: (keyof Company)[]
+): Promise<Record<string, any>[]> {
+  return searchDocumentsByField("companies", "name", companyName, selectFields);
 }
