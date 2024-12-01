@@ -89,3 +89,30 @@ export function transformToUndefined(
     ])
   );
 }
+
+/**
+ * A helper function to handle input changes, allowing optional parsing and transforming empty values to `null`.
+ *
+ * @template T - The type of the parsed value.
+ * @param parser - A function to parse the input value. Defaults to a passthrough parser that returns the input as-is.
+ * @returns A function to handle the `onChange` event, transforming the raw input value before invoking the native `onChange` handler.
+ *
+ * @param e - The input change event.
+ * @param nativeOnChange - The native `onChange` handler from the form field.
+ */
+export function handleInputNullableFieldChange<T>(
+  parser: (value: string) => T | undefined = (v) => v as unknown as T
+) {
+  return (
+    e: React.ChangeEvent<HTMLInputElement>,
+    nativeOnChange?: (value: any) => void
+  ) => {
+    const rawValue = e.target.value;
+    const parsedValue = rawValue === "" ? null : parser(rawValue);
+    if (typeof parsedValue === "number" && isNaN(parsedValue)) {
+      nativeOnChange?.(null);
+    } else {
+      nativeOnChange?.(parsedValue);
+    }
+  };
+}
