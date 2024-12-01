@@ -16,3 +16,13 @@ export const BASIC_COMPANY_DATA_FIELDS = {
   numberOfEmployees: { label: "# of Employees" },
   estimatedRevenue: { label: "Estimated Revenue" },
 };
+
+export const REVENUE_OPTIONS = [
+  "<$100M",
+  "$100M - $500M",
+  "$500M - $1B",
+  "$1B - $10B",
+  "$10B - $50B",
+  "$50B - $100B",
+  "$100B+",
+] as const;
