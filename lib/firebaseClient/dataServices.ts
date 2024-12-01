@@ -8,6 +8,7 @@ import {
   query,
   where,
   QueryConstraint,
+  deleteDoc,
 } from "firebase/firestore";
 import { firestore } from "./firebaseClient";
 
@@ -119,4 +120,15 @@ export async function searchDocumentsByField(
     }
     return data;
   });
+}
+
+/**
+ * Deletes a document from Firestore.
+ *
+ * @param docPath - The path to the document to be deleted (e.g., "collectionName/docId").
+ * @returns A promise that resolves when the document is deleted.
+ */
+export async function deleteDocument(docPath: string): Promise<void> {
+  const documentRef = doc(firestore, docPath);
+  await deleteDoc(documentRef);
 }
