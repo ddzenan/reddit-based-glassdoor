@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchCompany } from "@/services/companies/basicCompanyActions";
 import { Company } from "@/types";
-import { useErrorToast } from "./useToasts";
 
 /**
  * This hook retrieves company data from an API based on the provided company ID and specified fields.
@@ -12,28 +11,31 @@ import { useErrorToast } from "./useToasts";
  * @returns An object containing:
  * - `data`: The fetched company data. Initially an empty object, updated once the data is successfully fetched.
  * - `isLoading`: Boolean indicating whether the data is currently being loaded.
+ * - `isError`: Boolean indicating whether an error occurred during the data fetch.
  */
 export function useCompanyData(companyId?: string, fields?: (keyof Company)[]) {
   const [data, setData] = useState<Partial<Company>>({});
   const [isLoading, setIsLoading] = useState(!!companyId);
-  const [areDataFetched, setAreDataFetched] = useState(false);
-  const showErrorToast = useErrorToast();
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
+      setIsError(false);
       try {
-        if (companyId && !areDataFetched) {
-          setAreDataFetched(true);
+        if (companyId) {
           const company = await fetchCompany(companyId, fields);
           if (company) setData(company);
-          setIsLoading(false);
         }
       } catch (error) {
-        showErrorToast();
+        setIsError(true);
+        setData({});
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
-  }, [companyId, fields, showErrorToast]);
+  }, [companyId, fields]);
 
-  return { data, isLoading };
+  return { data, isLoading, isError };
 }

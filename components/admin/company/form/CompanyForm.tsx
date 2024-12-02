@@ -21,6 +21,7 @@ import { Form } from "@/components/ui/form";
 import FormFieldWrapper from "@/components/shared/FormFieldWrapper";
 import { Button } from "@/components/ui/button";
 import BasicFormSkeleton from "@/components/shared/BasicFormSkeleton";
+import ErrorAlert from "@/components/shared/ErrorAlert";
 
 const FIELDS = [
   "name",
@@ -57,10 +58,11 @@ type CompanyFormProps = {
  * @returns {JSX.Element} A JSX element that renders the company form, including fields for name, slug, website, year founded, number of employees, and estimated revenue.
  */
 export default function CompanyForm({ companyId }: CompanyFormProps) {
-  const { data: companyData, isLoading: isCompanyLoading } = useCompanyData(
-    companyId,
-    FIELDS
-  );
+  const {
+    data: companyData,
+    isLoading: isCompanyLoading,
+    isError: isCompanyError,
+  } = useCompanyData(companyId, FIELDS);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const showSuccessToast = useSuccessToast();
   const showErrorToast = useErrorToast();
@@ -114,6 +116,8 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
       <div className="font-semibold text-2xl mb-16">Add Company</div>
       {isCompanyLoading ? (
         <BasicFormSkeleton numberOfFields={NUMBER_OF_FIELDS} />
+      ) : isCompanyError ? (
+        <ErrorAlert />
       ) : (
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
