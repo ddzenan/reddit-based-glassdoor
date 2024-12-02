@@ -155,7 +155,11 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
               type="select"
               options={REVENUE_OPTIONS_FOR_SELECT}
             />
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              className="text-normal"
+              disabled={isSubmitting}
+            >
               {isSubmitting
                 ? "Please wait..."
                 : companyId
