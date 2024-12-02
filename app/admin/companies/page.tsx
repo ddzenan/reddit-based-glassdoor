@@ -33,6 +33,10 @@ export default function AdminCompaniesPage() {
         setSearchQuery={setSearchQuery}
         onSearch={search}
       />
+      <p className="text-xs text-muted-foreground">
+        It is necessary to enter the correct name of the company (the search is
+        case sensitive)
+      </p>
       <div className="mt-16">
         {isLoading ? (
           <p className="text-center">Loading...</p>
