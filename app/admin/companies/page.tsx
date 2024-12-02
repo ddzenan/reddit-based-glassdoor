@@ -22,8 +22,7 @@ export default function AdminCompaniesPage() {
     isError,
     search,
   } = useCompaniesSearch();
-  const { isDeleting, deleteCompanyById: deleteCompany } =
-    useCompanyDeletion(setCompanies);
+  const { isDeleting, deleteCompany } = useCompanyDeletion(setCompanies);
 
   return (
     <div className="max-w-screen-sm mx-auto px-2 py-8 sm:py-16">

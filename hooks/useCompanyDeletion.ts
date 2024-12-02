@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteCompany } from "@/services/companies/basicCompanyActions";
+import { deleteCompany as deleteCompanyById } from "@/services/companies/basicCompanyActions";
 import { Company } from "@/types";
 import { useSuccessToast, useErrorToast } from "@/hooks/useToasts";
 
@@ -13,7 +13,7 @@ import { useSuccessToast, useErrorToast } from "@/hooks/useToasts";
  * for the companies list, used to remove the deleted company.
  * @returns An object containing:
  * - `isDeleting`: Boolean indicating if a deletion is in progress.
- * - `deleteCompanyById`: Function to delete a company by its ID.
+ * - `deleteCompany`: Function to delete a company by its ID.
  */
 export function useCompanyDeletion(
   setCompanies: React.Dispatch<React.SetStateAction<Company[]>>
@@ -22,10 +22,10 @@ export function useCompanyDeletion(
   const showSuccessToast = useSuccessToast();
   const showErrorToast = useErrorToast();
 
-  async function deleteCompanyById(companyId: string) {
+  async function deleteCompany(companyId: string) {
     setIsDeleting(true);
     try {
-      await deleteCompany(companyId);
+      await deleteCompanyById(companyId);
       setCompanies((prev) =>
         prev.filter((company) => company.id !== companyId)
       );
@@ -37,5 +37,5 @@ export function useCompanyDeletion(
     }
   }
 
-  return { isDeleting, deleteCompanyById };
+  return { isDeleting, deleteCompany };
 }
