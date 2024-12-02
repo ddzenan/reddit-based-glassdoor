@@ -4,6 +4,7 @@ import { useCompaniesSearch } from "@/hooks/useCompaniesSearch";
 import { useCompanyDeletion } from "@/hooks/useCompanyDeletion";
 import SearchBar from "@/components/admin/companies/SearchBar";
 import CompaniesList from "@/components/admin/companies/CompaniesList";
+import ErrorAlert from "@/components/shared/ErrorAlert";
 
 /**
  * A Next.js page component that renders search bar and admin's companies list.
@@ -36,9 +37,7 @@ export default function AdminCompaniesPage() {
         {isLoading ? (
           <p className="text-center">Loading...</p>
         ) : isError ? (
-          <p className="text-red-500 text-center">
-            An error occurred, please try again.
-          </p>
+          <ErrorAlert />
         ) : (
           <CompaniesList
             companies={companies}
