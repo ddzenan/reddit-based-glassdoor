@@ -8,10 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CompanySchema } from "@/schemas";
 import { Company } from "@/types";
 import { REVENUE_OPTIONS } from "@/utils/constants";
-import {
-  fetchCompany,
-  saveCompany,
-} from "@/services/companies/basicCompanyActions";
+import { useCompanyData } from "@/hooks/useCompanyData";
+import { saveCompany } from "@/services/companies/basicCompanyActions";
 import {
   generateSlug,
   handleInputNullableFieldChange,
@@ -59,9 +57,11 @@ type CompanyFormProps = {
  * @returns {JSX.Element} A JSX element that renders the company form, including fields for name, slug, website, year founded, number of employees, and estimated revenue.
  */
 export default function CompanyForm({ companyId }: CompanyFormProps) {
-  const [isFormLoading, setIsFormLoading] = useState<boolean>(true);
+  const { data: companyData, isLoading: isCompanyLoading } = useCompanyData(
+    companyId,
+    FIELDS
+  );
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [areDataFetched, setAreDataFetched] = useState<boolean>(false);
   const showSuccessToast = useSuccessToast();
   const showErrorToast = useErrorToast();
   const router = useRouter();
@@ -79,23 +79,11 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
   const { control, handleSubmit, setValue, reset } = form;
 
   useEffect(() => {
-    async function getCompanyData() {
-      try {
-        if (companyId && !areDataFetched) {
-          setAreDataFetched(true);
-          const company = await fetchCompany(companyId, FIELDS);
-          if (!company) return;
-          const transformedData = transformToNull(company, FIELDS);
-          if (company) reset(transformedData);
-        }
-      } catch (error) {
-        showErrorToast();
-      } finally {
-        setIsFormLoading(false);
-      }
+    if (companyData) {
+      const transformedData = transformToNull(companyData, FIELDS);
+      reset(transformedData);
     }
-    getCompanyData();
-  }, [companyId, reset, showErrorToast]);
+  }, [companyData, reset]);
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.value;
@@ -124,7 +112,7 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
   return (
     <div>
       <div className="font-semibold text-2xl mb-16">Add Company</div>
-      {isFormLoading ? (
+      {isCompanyLoading ? (
         <BasicFormSkeleton numberOfFields={NUMBER_OF_FIELDS} />
       ) : (
         <Form {...form}>
