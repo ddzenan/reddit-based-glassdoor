@@ -28,32 +28,24 @@ export async function handleCompanyPageData(slug: string): Promise<{
   if (!companies || companies.length === 0)
     throw new Error(`There is no company with slug ${slug}.`);
   let company = companies[0] as Company;
-  const {
-    id: companyId,
-    name: companyName,
-    summary: companySummary,
-    website,
-  } = company;
-  let reducedRedditPosts: ReducedRedditPost[] = [];
-  if (!companySummary) {
-    const redditPosts = await fetchPostsAndComments({
-      searchTerm: companyName,
+  const { id, name, website } = company;
+  let redditPosts: RedditPostWithComments[] = await getAllDocuments(
+    `companies/${id}/redditPosts`
+  );
+  if (!redditPosts.length) {
+    redditPosts = await fetchPostsAndComments({
+      searchTerm: name,
     });
-    reducedRedditPosts = redditPosts.map(({ title, text, url }) => ({
-      title,
-      text,
-      url,
-    }));
     const [summary, redditPostsWithSentiments] = await Promise.all([
       analyzeRedditPosts(
         ANALYSIS_TYPES.companySummary,
         redditPosts,
-        companyName
+        name
       ) as Promise<string>,
       analyzeRedditPosts(
         ANALYSIS_TYPES.sentiments,
         redditPosts,
-        companyName
+        name
       ) as Promise<RedditPostWithComments[]>,
     ]);
     const sentimentCounts = countSentiments(redditPostsWithSentiments);
@@ -63,20 +55,22 @@ export async function handleCompanyPageData(slug: string): Promise<{
       summary,
     };
     await updateDocumentAndAddToSubcollection(
-      `companies/${companyId}`,
+      `companies/${id}`,
       company,
       "redditPosts",
       redditPostsWithSentiments
-    );
-  } else {
-    reducedRedditPosts = await getAllDocuments(
-      `companies/${companyId}/redditPosts`,
-      ["title", "text", "url"]
     );
   }
   if (website) {
     const logo = await fetchClearbitLogo(website);
     if (logo) company = { ...company, logo };
   }
+  const reducedRedditPosts: ReducedRedditPost[] = redditPosts.map(
+    ({ title, text, url }) => ({
+      title,
+      text,
+      url,
+    })
+  );
   return { company: company, redditPosts: reducedRedditPosts };
 }
