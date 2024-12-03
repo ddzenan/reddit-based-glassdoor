@@ -76,10 +76,13 @@ export default function FormFieldWrapper({
 
   function handleSelectChange(
     value: string,
+    fieldValue: string | null,
     nativeOnChange: (value: any) => void
   ) {
-    nativeOnChange(value);
-    onChange?.(value, nativeOnChange);
+    if (value !== fieldValue && (value !== "" || fieldValue !== null)) {
+      nativeOnChange(value);
+      onChange?.(value, nativeOnChange);
+    }
   }
   return (
     <FormField
@@ -101,7 +104,7 @@ export default function FormFieldWrapper({
               <Select
                 {...field}
                 onValueChange={(value) =>
-                  handleSelectChange(value, field.onChange)
+                  handleSelectChange(value, field.value, field.onChange)
                 }
                 value={field.value ?? ""}
               >
