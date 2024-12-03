@@ -5,6 +5,8 @@ import {
   deleteDocument,
 } from "@/lib/firebaseClient/dataServices";
 import { Company } from "@/types";
+import { doc, collection } from "firebase/firestore";
+import { firestore } from "@/lib/firebaseClient/firebaseClient";
 
 /**
  * Fetches a company document from Firestore based on its ID.
@@ -17,23 +19,32 @@ import { Company } from "@/types";
 export async function fetchCompany(
   companyId: string,
   selectFields?: (keyof Company)[]
-): Promise<Company | undefined> {
-  return getDocument<Company>(`/companies/${companyId}`, selectFields);
+): Promise<Partial<Company> | undefined> {
+  return getDocument<Partial<Company>>(`/companies/${companyId}`, selectFields);
 }
 
 /**
  * Saves a company document to Firestore.
  * Optionally, an existing company document can be updated by providing the company ID.
  *
- * @param data - The company data to be saved.
+ * @param companyData - The company data to be saved.
  * @param companyId - An optional ID for the company document. If not provided, a new document will be created.
  * @returns A promise that resolves when the company document is saved.
  */
-export async function saveCompany(data: Company, companyId?: string) {
+export async function saveCompany(
+  companyData: Partial<Company>,
+  companyId?: string
+) {
+  const collectionPath = "companies";
+  const id = companyId ?? doc(collection(firestore, collectionPath)).id;
+  const data = {
+    id,
+    ...companyData,
+  };
   return await saveDocument({
-    collectionPath: "companies",
-    id: companyId,
-    data: data,
+    collectionPath,
+    id,
+    data,
   });
 }
 
