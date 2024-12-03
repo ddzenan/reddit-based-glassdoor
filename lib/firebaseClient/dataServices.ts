@@ -95,12 +95,12 @@ export async function saveDocument({
  * @param selectFields - An optional array of fields to select from the document.
  * @returns A promise that resolves to an array of objects that match the query.
  */
-export async function searchDocumentsByField(
+export async function searchDocumentsByField<T extends Record<string, any>>(
   collectionPath: string,
   field: string,
   value: any,
-  selectFields?: string[]
-): Promise<Record<string, any>[]> {
+  selectFields?: (keyof T)[]
+): Promise<Partial<T>[]> {
   const collectionRef = collection(firestore, collectionPath);
   const constraints: QueryConstraint[] = [where(field, "==", value)];
   const queryRef = query(collectionRef, ...constraints);
@@ -110,13 +110,12 @@ export async function searchDocumentsByField(
   if (snapshot.empty) return [];
 
   return snapshot.docs.map((doc) => {
-    const data = doc.data();
+    const data = doc.data() as T;
     if (selectFields && selectFields.length > 0) {
-      const filteredData: Record<string, any> = {};
-      selectFields.forEach((field) => {
-        if (field in data) filteredData[field] = data[field];
-      });
-      return filteredData;
+      return selectFields.reduce<Partial<T>>((filteredData, field) => {
+        filteredData[field] = data[field];
+        return filteredData;
+      }, {});
     }
     return data;
   });

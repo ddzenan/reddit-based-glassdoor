@@ -2,6 +2,7 @@
 
 import { useCompaniesSearch } from "@/hooks/useCompaniesSearch";
 import { useCompanyDeletion } from "@/hooks/useCompanyDeletion";
+import { CompanyBasicInfoWithId } from "@/types";
 import SearchBar from "@/components/admin/companies/SearchBar";
 import CompaniesList from "@/components/admin/companies/CompaniesList";
 import ErrorAlert from "@/components/shared/ErrorAlert";
@@ -23,7 +24,8 @@ export default function AdminCompaniesPage() {
     isError,
     search,
   } = useCompaniesSearch();
-  const { isDeleting, deleteCompany } = useCompanyDeletion(setCompanies);
+  const { isDeleting, deleteCompany } =
+    useCompanyDeletion<CompanyBasicInfoWithId>(setCompanies);
 
   return (
     <div className="max-w-screen-sm mx-auto px-2 py-8 sm:py-16">

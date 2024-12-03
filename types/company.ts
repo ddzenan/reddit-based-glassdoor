@@ -37,6 +37,11 @@ export type Company = {
 export type CompanyBasicInfo = Pick<Company, "name" | "slug">;
 
 /**
+ * Basic company information with ID.
+ */
+export type CompanyBasicInfoWithId = CompanyBasicInfo & Pick<Company, "id">;
+
+/**
  * Basic company information with logo.
  */
 export type CompanyBasicInfoWithLogo = CompanyBasicInfo & Pick<Company, "logo">;

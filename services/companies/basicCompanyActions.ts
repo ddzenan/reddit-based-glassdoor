@@ -47,8 +47,13 @@ export async function saveCompany(data: Company, companyId?: string) {
 export async function searchCompaniesByName(
   companyName: string,
   selectFields?: (keyof Company)[]
-): Promise<Record<string, any>[]> {
-  return searchDocumentsByField("companies", "name", companyName, selectFields);
+): Promise<Partial<Pick<Company, keyof Company>>[]> {
+  return searchDocumentsByField<Company>(
+    "companies",
+    "name",
+    companyName,
+    selectFields as (keyof Company)[]
+  );
 }
 
 /**

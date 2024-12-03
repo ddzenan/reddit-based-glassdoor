@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { deleteCompany as deleteCompanyById } from "@/services/companies/basicCompanyActions";
-import { Company } from "@/types";
 import { useSuccessToast, useErrorToast } from "@/hooks/useToasts";
 
 /**
@@ -15,8 +14,8 @@ import { useSuccessToast, useErrorToast } from "@/hooks/useToasts";
  * - `isDeleting`: Boolean indicating if a deletion is in progress.
  * - `deleteCompany`: Function to delete a company by its ID.
  */
-export function useCompanyDeletion(
-  setCompanies: React.Dispatch<React.SetStateAction<Company[]>>
+export function useCompanyDeletion<T extends { id: string }>(
+  setCompanies: React.Dispatch<React.SetStateAction<T[]>>
 ) {
   const [isDeleting, setIsDeleting] = useState(false);
   const showSuccessToast = useSuccessToast();

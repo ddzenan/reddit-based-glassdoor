@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { searchCompaniesByName } from "@/services/companies/basicCompanyActions";
-import { Company } from "@/types";
+import { CompanyBasicInfoWithId } from "@/types";
 
 /**
  * Custom hook for managing the search functionality for companies.
@@ -19,7 +19,7 @@ import { Company } from "@/types";
  */
 export function useCompaniesSearch() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [companies, setCompanies] = useState<Company[]>([]);
+  const [companies, setCompanies] = useState<CompanyBasicInfoWithId[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -28,11 +28,10 @@ export function useCompaniesSearch() {
     setIsLoading(true);
     setIsError(false);
     try {
-      const result = (await searchCompaniesByName(searchQuery, [
-        "id",
-        "name",
-        "slug",
-      ])) as Company[];
+      const result: CompanyBasicInfoWithId[] = (await searchCompaniesByName(
+        searchQuery,
+        ["id", "name", "slug"]
+      )) as CompanyBasicInfoWithId[];
       setCompanies(result);
     } catch {
       setCompanies([]);

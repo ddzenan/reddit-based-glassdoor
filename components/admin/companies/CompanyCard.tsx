@@ -1,18 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Company } from "@/types";
+import { CompanyBasicInfoWithId } from "@/types";
 import AlertDialogModal from "@/components/shared/AlertDialogModal";
 import Link from "next/link";
 
 /**
  * Props for the `CompanyCard` component.
  *
- * @property {string} id - The unique identifier of the company.
- * @property {string} slug - The slug used for navigation to the company's details page.
- * @property {string} name - The name of the company.
+ * @property {CompanyBasicInfoWithId} - Contains the basic information about the company.
  * @property {(companyId: string) => void} onDeleteCompany - Function to trigger the deletion of the company.
  * @property {boolean} isDeleting - Indicates whether the company is currently being deleted.
  */
-type CompanyCardProps = Company & {
+type CompanyCardProps = CompanyBasicInfoWithId & {
   onDeleteCompany: (companyId: string) => void;
   isDeleting: boolean;
 };

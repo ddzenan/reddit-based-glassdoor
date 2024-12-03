@@ -1,15 +1,15 @@
 import CompanyCard from "@/components/admin/companies/CompanyCard";
-import { Company } from "@/types";
+import { CompanyBasicInfoWithId } from "@/types";
 
 /**
  * Props for the `CompaniesList` component.
  *
- * @property {Company[]} companies - Array of company objects to display.
+ * @property {CompanyBasicInfoWithId[]} companies - Array of basic company information to display.
  * @property {(companyId: string) => void} onDeleteCompany - Function to trigger the deletion of a company.
  * @property {boolean} isDeleting - Indicates whether a company is currently being deleted.
  */
 type CompaniesListProps = {
-  companies: Company[];
+  companies: CompanyBasicInfoWithId[];
   onDeleteCompany: (companyId: string) => void;
   isDeleting: boolean;
 };
