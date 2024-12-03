@@ -96,7 +96,7 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
   async function onSubmit(data: z.infer<typeof CompanySchema>) {
     setIsSubmitting(true);
     try {
-      const transformedData = transformToUndefined(data) as Company;
+      const transformedData = transformToUndefined(data) as Partial<Company>;
       await saveCompany(transformedData, companyId);
       showSuccessToast(
         `Successfully ${companyId ? "updated" : "created"} company!`
