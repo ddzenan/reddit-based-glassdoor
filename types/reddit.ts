@@ -29,10 +29,6 @@ export type RedditPostWithComments = {
 
 /**
  * Represents a reduced version of a Reddit post, containing only the necessary fields.
- *
- * @property {string} title - The title of the Reddit post.
- * @property {string} text - The text content of the Reddit post.
- * @property {string} url - The URL of the Reddit post.
  */
 export type ReducedRedditPost = Pick<
   RedditPostWithComments,
