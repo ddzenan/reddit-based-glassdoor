@@ -1,7 +1,12 @@
 "use client";
 
 import { BASIC_COMPANY_DATA_FIELDS } from "@/utils/constants";
-import { BasicCompanyDataProps } from "@/types";
+import { CompanyDetailsInfo } from "@/types";
+
+/**
+ * Props for the `BasicCompanyData` component.
+ */
+type BasicCompanyDataProps = CompanyDetailsInfo;
 
 /**
  * A React component that displays basic data about a company.

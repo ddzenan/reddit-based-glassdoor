@@ -3,14 +3,15 @@
 import Card from "@/components/shared/Card";
 import CompanyNameWithLogo from "@/components/shared/CompanyNameWithLogo";
 import BasicCompanyData from "./BasicCompanyData";
-import { CompanyNameWithLogoProps, BasicCompanyDataProps } from "@/types";
+import { CompanyBasicInfoWithLogo, CompanyDetailsInfo } from "@/types";
 
 /**
  * Props for the `CompanyHeader` component.
  *
- * Combines the props from `CompanyNameWithLogo` and `BasicCompanyData` components.
+ * Combines the props from `CompanyBasicInfoWithLogo` and `CompanyDetailsInfo` components.
  */
-type CompanyHeaderProps = CompanyNameWithLogoProps & BasicCompanyDataProps;
+type CompanyHeaderProps = Omit<CompanyBasicInfoWithLogo, "slug"> &
+  CompanyDetailsInfo;
 
 /**
  * A React component that renders a company header.

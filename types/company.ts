@@ -32,34 +32,28 @@ export type Company = {
 };
 
 /**
- * Props for the CompanyNameWithLogo component.
+ * Basic company information.
+ */
+export type CompanyBasicInfo = Pick<Company, "name" | "slug">;
+
+/**
+ * Basic company information with logo.
+ */
+export type CompanyBasicInfoWithLogo = CompanyBasicInfo & Pick<Company, "logo">;
+
+/**
+ * Company name with logo and size.
  *
- * @property {string} name - The name of the company.
- * @property {string | null} logo - The URL of the company's logo.
  * @property {"sm" | "md" | "lg"} [size] - The size of the component, which determines the logo dimensions and text styling.
  */
-export type CompanyNameWithLogoProps = Pick<Company, "name" | "logo"> & {
+export type CompanyNameWithLogoAndSize = Pick<Company, "name" | "logo"> & {
   size?: "sm" | "md" | "lg";
 };
 
 /**
- * Props for the `BasicCompanyData` component.
- *
- * @property {string} [website] - The website of the company.
- * @property {number} [yearFounded] - The year the company was founded.
- * @property {string} [numberOfEmployees] - The total number of employees in the company.
- * @property {string} [estimatedRevenue] - The company's estimated annual revenue.
+ * Additional company details typically used for forms or detailed views.
  */
-export type BasicCompanyDataProps = Pick<
+export type CompanyDetailsInfo = Pick<
   Company,
   "website" | "yearFounded" | "numberOfEmployees" | "estimatedRevenue"
 >;
-
-/**
- * Props for the `CompanyCard` component.
- *
- * @property {string} name - The name of the company.
- * @property {string} logo - The URL of the company's logo.
- * @property {string} slug - The unique identifier for the company used in its URL.
- */
-export type CompanyCardProps = Pick<Company, "name" | "logo" | "slug">;

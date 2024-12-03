@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { CompanyNameWithLogoProps } from "@/types";
+import { CompanyNameWithLogoAndSize } from "@/types";
 import { CiImageOn } from "react-icons/ci";
 
 const SIZE_CONFIG = {
@@ -18,6 +18,11 @@ const SIZE_CONFIG = {
     textClass: "text-2xl font-semibold",
   },
 };
+
+/**
+ * Props for the `CompanyNameWithLogo` component.
+ */
+type CompanyNameWithLogoProps = CompanyNameWithLogoAndSize;
 
 /**
  * A React component that displays the name and logo of a company.

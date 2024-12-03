@@ -1,15 +1,15 @@
 "use client";
 
 import CompanyCard from "./CompanyCard";
-import { CompanyCardProps } from "@/types";
+import { CompanyBasicInfoWithLogo } from "@/types";
 
 /**
  * Props for the `CompanyList` component.
  *
- * @property {CompanyCardProps[]} companies - An array of company data to be displayed as individual cards.
+ * @property {CompanyBasicInfoWithLogo[]} companies - An array of company data to be displayed as individual cards.
  */
 type CompanyListProps = {
-  companies: CompanyCardProps[];
+  companies: CompanyBasicInfoWithLogo[];
 };
 
 /**
