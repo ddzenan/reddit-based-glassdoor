@@ -25,17 +25,23 @@ type IndustryAnalysis = {
 };
 
 /**
+ * Data returned by the `handleHomePageData` function.
+ *
+ * @property {IndustryAnalysis} IndustryAnalysis - The main industry analysis data.
+ * @property {ReducedRedditPost[]} redditPosts - Array of reduced Reddit posts related to the analysis.
+ */
+type HomePageData = IndustryAnalysis & {
+  redditPosts: ReducedRedditPost[];
+};
+
+/**
  * Handles data processing for the home page, including fetching Reddit posts,
  * analyzing sentiments, and retrieving or updating industry analysis.
  *
  * @returns A promise resolving to an object containing industry analysis data
  * and a reduced list of Reddit posts.
  */
-export async function handleHomePageData(): Promise<
-  IndustryAnalysis & {
-    redditPosts: ReducedRedditPost[];
-  }
-> {
+export async function handleHomePageData(): Promise<HomePageData> {
   let analysisData: IndustryAnalysis | undefined = await getDocumentByPath(
     "industries/tech"
   );
