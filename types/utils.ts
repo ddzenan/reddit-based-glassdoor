@@ -18,3 +18,14 @@ export type AnalysisType = (typeof ANALYSIS_TYPES)[keyof typeof ANALYSIS_TYPES];
  * Represents the type of revenue options for a company.
  */
 export type RevenueOptionsType = (typeof REVENUE_OPTIONS)[number];
+
+/**
+ * Represents an item in the navigation menu popover.
+ *
+ * @property {string} label - The label displayed for the navigation item.
+ * @property {string} href - The URL that the navigation item links to.
+ */
+export type NavigationMenuPopoverItem = {
+  label: string;
+  href: string;
+};

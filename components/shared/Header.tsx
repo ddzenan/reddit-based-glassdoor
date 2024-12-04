@@ -1,15 +1,31 @@
 "use client";
 
+import { NavigationMenuPopoverItem } from "@/types";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import NavigationMenuPopover from "./NavigationMenuPopover";
 
-const NAVIGATION_ITEMS = [
+/**
+ * Represents a navigation item.
+ *
+ * @property {string} label - The label for the navigation item.
+ * @property {string} [href] - The URL that the navigation item links to. This is either this or `children` must be provided.
+ * @property {NavigationMenuPopoverItem[]} [children] - A list of child items in the navigation item. This is either this or `href` must be provided.
+ */
+type NavigationItem = {
+  label: string;
+} & (
+  | { href: string; children?: never }
+  | { children: NavigationMenuPopoverItem[]; href?: never }
+);
+
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     label: "Home",
     href: "/",
@@ -46,10 +62,10 @@ export default function Header() {
           {NAVIGATION_ITEMS.map((item) => (
             <NavigationMenuItem key={item.label}>
               {item.children ? (
-                <NavigationMenuPopover
-                  triggerLabel={item.label}
-                  popoverItems={item.children}
-                />
+                <>
+                  <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+                  <NavigationMenuPopover popoverItems={item.children} />
+                </>
               ) : item.href ? (
                 <Link href={item.href} className={navigationMenuTriggerStyle()}>
                   {item.label}
