@@ -43,13 +43,21 @@ export async function getDocument<T = Record<string, any>>(
 }
 
 /**
+ * Represents the transformed data for Firestore, where undefined values
+ * are replaced with Firestore's deleteField function.
+ */
+type FirestoreData = {
+  [key: string]: any;
+};
+
+/**
  * Prepares the data for Firestore by removing fields that are undefined.
  * If a field has an undefined value, it is deleted from the data object.
  *
  * @param data - The data to be prepared for Firestore.
  * @returns A new data object with undefined values removed.
  */
-function prepareDataForFirestore(data: Record<string, any>) {
+function prepareDataForFirestore(data: Record<string, any>): FirestoreData {
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [
       key,
