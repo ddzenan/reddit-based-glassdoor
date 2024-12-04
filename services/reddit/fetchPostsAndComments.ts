@@ -15,13 +15,24 @@ const TOP_POSTS_COMMENTS_AMOUNT = 15;
 const DELETED_COMMENTS_KEYWORS = ["[deleted]", "[removed]"];
 
 /**
+ * Represents the parameters for fetching posts and comments from Reddit.
+ *
+ * @property {string} [searchTerm] - Optional search term to filter posts.
+ * @property {string} [subreddit] - The subreddit to fetch posts from (defaults to `DEFAULT_SUBREDDIT`).
+ * @property {string} [time] - The time period for filtering posts (defaults to `DEFAULT_POSTS_TIME_PERIOD`).
+ * @property {string} [sort] - The sorting option for posts (defaults to `DEFAULT_POSTS_SORT_OPTION`).
+ */
+type FetchPostsAndCommentsParams = {
+  searchTerm?: string;
+  subreddit?: string;
+  time?: BaseSearchOptions["time"];
+  sort?: BaseSearchOptions["sort"];
+};
+
+/**
  * Fetches posts and their comments from a specified subreddit.
  *
  * @param options - Options for fetching posts.
- * @param options.searchTerm - Optional search term to filter posts by.
- * @param options.subreddit - Subreddit name.
- * @param options.time - Time filter for posts.
- * @param options.sort - Sorting option for posts.
  * @returns Array of posts with comments.
  */
 export async function fetchPostsAndComments({
@@ -29,12 +40,7 @@ export async function fetchPostsAndComments({
   subreddit = DEFAULT_SUBREDDIT,
   time = DEFAULT_POSTS_TIME_PERIOD,
   sort = DEFAULT_POSTS_SORT_OPTION,
-}: {
-  searchTerm?: string;
-  subreddit?: string;
-  time?: BaseSearchOptions["time"];
-  sort?: BaseSearchOptions["sort"];
-} = {}): Promise<RedditPostWithComments[]> {
+}: FetchPostsAndCommentsParams = {}): Promise<RedditPostWithComments[]> {
   const posts = searchTerm
     ? await searchPosts(subreddit, searchTerm, time, sort)
     : await getTopPosts(subreddit, time);
