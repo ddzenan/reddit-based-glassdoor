@@ -12,7 +12,7 @@ import ErrorAlert from "@/components/shared/ErrorAlert";
  * The search bar allows users to search for companies by name.
  * For each company it is possible to edit or delete it.
  *
- * @returns {Promise<JSX.Element>} A JSX element that renders search bar and companies list.
+ * @returns A JSX element that renders search bar and companies list.
  */
 export default function AdminCompaniesPage() {
   const {

@@ -30,7 +30,7 @@ type CompanyNameWithLogoProps = CompanyNameWithLogoAndSize;
  * The component supports three different sizes: small (`sm`), medium (`md`), and large (`lg`).
  *
  * @param {CompanyNameWithLogoProps} props - Props for the component.
- * @returns {JSX.Element} A JSX element showing the company's name and logo.
+ * @returns A JSX element showing the company's name and logo.
  */
 export default function CompanyNameWithLogo({
   name,

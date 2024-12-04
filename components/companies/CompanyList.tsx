@@ -16,7 +16,7 @@ type CompanyListProps = {
  * Component that renders a list of companies as a responsive grid of cards.
  *
  * @param {CompanyListProps} props - The properties for the `CompanyList` component, including an array of companies.
- * @returns {JSX.Element} A JSX element that displays a grid of `CompanyCard` components.
+ * @returns A JSX element that displays a grid of `CompanyCard` components.
  */
 export default function CompanyList({ companies }: CompanyListProps) {
   return (

@@ -20,7 +20,7 @@ type CompanyCardProps = CompanyBasicInfoWithId & {
  * Includes options for editing or deleting the company.
  *
  * @param {CompanyCardProps} props - The properties for the component, including company details and action handlers.
- * @returns {JSX.Element} A JSX element containing the company details and action buttons.
+ * @returns A JSX element containing the company details and action buttons.
  */
 export default function CompanyCard({
   id,

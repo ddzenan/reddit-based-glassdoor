@@ -21,7 +21,7 @@ type RedditPostListProps = {
  * Each post is displayed as a clickable link, showing the title and a shortened version of the text.
  *
  * @param {RedditPostListProps} props - The properties passed to the `RedditPostList` component, including an array of Reddit posts.
- * @returns {JSX.Element} A JSX element that renders the list of Reddit posts.
+ * @returns A JSX element that renders the list of Reddit posts.
  */
 export default function RedditPostList({ posts }: RedditPostListProps) {
   return (

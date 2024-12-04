@@ -21,7 +21,7 @@ type CompanyPageProps = {
  * The page includes a company header, sentiment analysis chart, a summary, and Reddit posts.
  *
  * @param {CompanyPageProps} props - The properties passed to the `CompanyPage` component.
- * @returns {Promise<JSX.Element>} A JSX element that renders the company details page.
+ * @returns A JSX element that renders the company details page.
  */
 export default async function CompanyPage(props: CompanyPageProps) {
   const { params } = await props;

@@ -21,7 +21,7 @@ type SearchBarProps = {
  * Users can type in the input field and trigger a search operation.
  *
  * @param {SearchBarProps} props - The properties for the component, including loading state, query, and action handlers.
- * @returns {JSX.Element} A JSX element containing the search bar with input and button elements.
+ * @returns A JSX element containing the search bar with input and button elements.
  */
 export default function SearchBar({
   isLoading,

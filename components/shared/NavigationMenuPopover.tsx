@@ -27,7 +27,7 @@ type NavigationMenuPopoverProps = {
  *
  * @param {NavigationMenuPopoverProps} props - The properties passed to the component, including `triggerLabel`
  * for the menu trigger and `popoverItems` for the menu options.
- * @returns {JSX.Element} A JSX element that renders a popover navigation menu.
+ * @returns A JSX element that renders a popover navigation menu.
  */
 export default function NavigationMenuPopover({
   triggerLabel,

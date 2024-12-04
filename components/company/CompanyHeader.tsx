@@ -18,7 +18,7 @@ type CompanyHeaderProps = Omit<CompanyBasicInfoWithLogo, "slug"> &
  * Displays the company name and logo along with basic company information.
  *
  * @param {CompanyHeaderProps} props - The properties passed to the `CompanyHeader` component.
- * @returns {JSX.Element} A JSX element that renders the company header.
+ * @returns A JSX element that renders the company header.
  */
 export default function CompanyHeader({
   name,

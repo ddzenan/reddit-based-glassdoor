@@ -26,7 +26,7 @@ type CardProps = {
  * The card content is customizable via the `children` prop.
  *
  * @param {CardProps} props - The properties passed to the `Card` component, including title, description, and children content.
- * @returns {JSX.Element} A JSX element that renders the card with optional title, description, and content.
+ * @returns A JSX element that renders the card with optional title, description, and content.
  */
 export default function Card({ title, description, children }: CardProps) {
   return (

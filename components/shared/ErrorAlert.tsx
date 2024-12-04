@@ -19,7 +19,7 @@ type ErrorAlertProps = {
  * It also includes an error icon for visual emphasis.
  *
  * @param {ErrorAlertProps} props - The properties passed to the `ErrorAlert` component, including optional `title` and `description`.
- * @returns {JSX.Element} A JSX element that renders the error alert with a title, description, and icon.
+ * @returns A JSX element that renders the error alert with a title, description, and icon.
  */
 export default function ErrorAlert({
   title = "Error",

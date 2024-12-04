@@ -16,7 +16,7 @@ type CompanyFormPageProps = {
  * A Next.js page component that renders a form for adding or editing a company.
  *
  * @param {CompanyFormPageProps} props - The properties passed to the `CompanyFormPage` component.
- * @returns {Promise<JSX.Element>} A JSX element that renders the company form.
+ * @returns A JSX element that renders the company form.
  */
 export default async function CompanyFormPage(props: CompanyFormPageProps) {
   const { searchParams } = await props;

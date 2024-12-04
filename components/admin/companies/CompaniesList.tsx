@@ -19,7 +19,7 @@ type CompaniesListProps = {
  * Displays a message if no companies are available.
  *
  * @param {CompaniesListProps} props - The properties for the component, including company data and action handlers.
- * @returns {JSX.Element} A JSX element containing a list of companies or a fallback message.
+ * @returns A JSX element containing a list of companies or a fallback message.
  */
 export default function CompaniesList({
   companies,

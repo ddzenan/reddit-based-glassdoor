@@ -1,7 +1,7 @@
 /**
  * A footer component displaying a brief description of the application.
  *
- * @returns {JSX.Element} A simple footer with application information.
+ * @returns A simple footer with application information.
  */
 export default function Footer() {
   return (

@@ -31,7 +31,7 @@ type SentimentChartProps = {
  * Component that renders a bar chart for visualizing sentiment analysis data.
  *
  * @param {SentimentChartProps} props - The sentiment data to be visualized, including counts for positive, neutral, and negative sentiments.
- * @returns {JSX.Element} A JSX element displaying the sentiment chart.
+ * @returns A JSX element displaying the sentiment chart.
  */
 export default function SentimentChart(props: SentimentChartProps) {
   const sentimentData = Object.entries(props).map(([sentiment, value]) => ({

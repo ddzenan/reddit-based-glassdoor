@@ -47,7 +47,7 @@ type AlertDialogModalProps = {
  * The dialog can include optional title, description, cancel, and action buttons.
  *
  * @param {AlertDialogModalProps} props - The properties for the component, including trigger details, content, and footer actions.
- * @returns {JSX.Element} A JSX element representing the alert dialog.
+ * @returns A JSX element representing the alert dialog.
  */
 export default function AlertDialogModal({
   triggerButtonLabel,

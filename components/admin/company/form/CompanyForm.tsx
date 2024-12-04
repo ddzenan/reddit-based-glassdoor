@@ -55,7 +55,7 @@ type CompanyFormProps = {
  * missing values by transforming them to `null`.
  *
  * @param {CompanyFormProps} props - The properties for the component, including an optional `companyId` for fetching and editing an existing company.
- * @returns {JSX.Element} A JSX element that renders the company form, including fields for name, slug, website, year founded, number of employees, and estimated revenue.
+ * @returns A JSX element that renders the company form, including fields for name, slug, website, year founded, number of employees, and estimated revenue.
  */
 export default function CompanyForm({ companyId }: CompanyFormProps) {
   const {

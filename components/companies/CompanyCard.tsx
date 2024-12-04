@@ -14,7 +14,7 @@ type CompanyCardProps = CompanyBasicInfoWithLogo;
  * The card is clickable and navigates to the company's page when clicked.
  *
  * @param {CompanyCardProps} props - The properties for the `CompanyCard` component, including the company name, logo, and slug.
- * @returns {JSX.Element} A JSX element that renders the company's card.
+ * @returns A JSX element that renders the company's card.
  */
 export default function CompanyCard({ name, slug, logo }: CompanyCardProps) {
   return (

@@ -12,7 +12,7 @@ type BasicFormSkeletonProps = {
  * It generates placeholder elements to simulate the loading state of a form with a given number of fields.
  *
  * @param {BasicFormSkeletonProps} props - The properties for the component, including `numberOfFields` to determine how many skeleton items to render.
- * @returns {JSX.Element} A JSX element that renders a series of skeleton placeholders for form fields and a submit button.
+ * @returns A JSX element that renders a series of skeleton placeholders for form fields and a submit button.
  */
 
 export default function BasicFormSkeleton({

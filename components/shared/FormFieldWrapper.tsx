@@ -52,7 +52,7 @@ type FormFieldWrapperProps = {
  * with optional custom behavior for field value changes.
  *
  * @param {FormFieldWrapperProps} props - The properties for the component, including the field name, control object, label, placeholder, and type.
- * @returns {JSX.Element} A JSX element that renders the appropriate form field, with support for handling changes and displaying validation messages.
+ * @returns A JSX element that renders the appropriate form field, with support for handling changes and displaying validation messages.
  */
 export default function FormFieldWrapper({
   name,

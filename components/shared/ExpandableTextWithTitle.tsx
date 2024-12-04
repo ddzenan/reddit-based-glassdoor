@@ -25,7 +25,7 @@ type ExpandableTextWithTitleProps = {
  * using a toggle button.
  *
  * @param {ExpandableTextWithTitleProps} props - The properties for the component, including an optional title and the main content text.
- * @returns {JSX.Element} A JSX element that displays a card with expandable text functionality.
+ * @returns A JSX element that displays a card with expandable text functionality.
  */
 export default function ExpandableTextWithTitle({
   title,

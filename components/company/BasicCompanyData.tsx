@@ -13,7 +13,7 @@ type BasicCompanyDataProps = CompanyDetailsInfo;
  * Information includes website, year founded, number of employees, and estimated revenue.
  *
  * @param {BasicCompanyDataProps} props - The company data to display.
- * @returns {JSX.Element} A JSX element rendering the company's information in a grid layout.
+ * @returns A JSX element rendering the company's information in a grid layout.
  */
 export default function BasicCompanyData(props: BasicCompanyDataProps) {
   const infoItems = Object.entries(BASIC_COMPANY_DATA_FIELDS)

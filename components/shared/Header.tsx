@@ -36,7 +36,7 @@ const NAVIGATION_ITEMS = [
 /**
  * A header component with navigation links and admin options.
  *
- * @returns {JSX.Element} A sticky header with a modern blur effect and navigation.
+ * @returns A sticky header with a modern blur effect and navigation.
  */
 export default function Header() {
   return (
