@@ -101,7 +101,7 @@ export function transformToUndefined(
  * @param nativeOnChange - The native `onChange` handler from the form field.
  */
 export function handleInputNullableFieldChange<T>(
-  parser: (value: string) => T | undefined = (v) => v as unknown as T
+  parser: (value: string) => T | null = (v) => v as unknown as T
 ) {
   return (
     e: React.ChangeEvent<HTMLInputElement>,
