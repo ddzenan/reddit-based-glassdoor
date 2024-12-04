@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CompanySchema } from "@/schemas";
-import { Company } from "@/types";
+import { Company, CompanyKey } from "@/types";
 import { REVENUE_OPTIONS } from "@/utils/constants";
 import { useCompanyData } from "@/hooks/useCompanyData";
 import { saveCompany } from "@/services/companies/basicCompanyActions";
@@ -23,14 +23,14 @@ import { Button } from "@/components/ui/button";
 import BasicFormSkeleton from "@/components/shared/BasicFormSkeleton";
 import ErrorAlert from "@/components/shared/ErrorAlert";
 
-const FIELDS = [
+const FIELDS: CompanyKey[] = [
   "name",
   "slug",
   "website",
   "yearFounded",
   "numberOfEmployees",
   "estimatedRevenue",
-] as (keyof Company)[];
+];
 
 const NUMBER_OF_FIELDS = FIELDS.length;
 

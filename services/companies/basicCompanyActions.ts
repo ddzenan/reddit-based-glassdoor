@@ -4,7 +4,7 @@ import {
   searchDocumentsByField,
   deleteDocument,
 } from "@/lib/firebaseClient/dataServices";
-import { Company } from "@/types";
+import { Company, CompanyKey } from "@/types";
 import { doc, collection } from "firebase/firestore";
 import { firestore } from "@/lib/firebaseClient/firebaseClient";
 
@@ -18,7 +18,7 @@ import { firestore } from "@/lib/firebaseClient/firebaseClient";
  */
 export async function fetchCompany(
   companyId: string,
-  selectFields?: (keyof Company)[]
+  selectFields?: CompanyKey[]
 ): Promise<Partial<Company> | undefined> {
   return getDocument<Partial<Company>>(`/companies/${companyId}`, selectFields);
 }
@@ -57,13 +57,13 @@ export async function saveCompany(
  */
 export async function searchCompaniesByName(
   companyName: string,
-  selectFields?: (keyof Company)[]
-): Promise<Partial<Pick<Company, keyof Company>>[]> {
+  selectFields?: CompanyKey[]
+): Promise<Partial<Pick<Company, CompanyKey>>[]> {
   return searchDocumentsByField<Company>(
     "companies",
     "name",
     companyName,
-    selectFields as (keyof Company)[]
+    selectFields as CompanyKey[]
   );
 }
 

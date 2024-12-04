@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchCompany } from "@/services/companies/basicCompanyActions";
-import { Company } from "@/types";
+import { Company, CompanyKey } from "@/types";
 
 /**
  * This hook retrieves company data from an API based on the provided company ID and specified fields.
@@ -13,7 +13,7 @@ import { Company } from "@/types";
  * - `isLoading`: Boolean indicating whether the data is currently being loaded.
  * - `isError`: Boolean indicating whether an error occurred during the data fetch.
  */
-export function useCompanyData(companyId?: string, fields?: (keyof Company)[]) {
+export function useCompanyData(companyId?: string, fields?: CompanyKey[]) {
   const [data, setData] = useState<Partial<Company>>({});
   const [isLoading, setIsLoading] = useState(!!companyId);
   const [isError, setIsError] = useState(false);

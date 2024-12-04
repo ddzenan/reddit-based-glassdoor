@@ -32,6 +32,11 @@ export type Company = {
 };
 
 /**
+ * Represents the key of a company object.
+ */
+export type CompanyKey = keyof Company;
+
+/**
  * Basic company information.
  */
 export type CompanyBasicInfo = Pick<Company, "name" | "slug">;
