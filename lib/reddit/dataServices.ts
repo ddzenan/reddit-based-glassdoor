@@ -37,6 +37,8 @@ export async function searchPosts(
   });
 }
 
+const COMMENTS_AMOUNT = 25;
+
 /**
  * Fetches comments for a given post.
  *
@@ -46,5 +48,5 @@ export async function searchPosts(
 export async function fetchCommentsForPost(
   post: Submission
 ): Promise<Comment[]> {
-  return await post.comments.fetchMore({ amount: 25 });
+  return await post.comments.fetchMore({ amount: COMMENTS_AMOUNT });
 }
