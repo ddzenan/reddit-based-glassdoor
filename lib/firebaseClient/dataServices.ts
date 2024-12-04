@@ -67,6 +67,21 @@ function prepareDataForFirestore(data: Record<string, any>): FirestoreData {
 }
 
 /**
+ * Parameters for the `saveDocument` function.
+ *
+ * @property {string} collectionPath - The Firestore collection path where the document will be saved.
+ * @property {string | undefined} id - Optional document ID. If not provided, a new document ID will be generated.
+ * @property {Record<string, any>} data - The data to be saved in the document.
+ * @property {boolean} [merge=true] - Whether to merge the new data with the existing document.
+ */
+type SaveDocumentParams = {
+  collectionPath: string;
+  id?: string;
+  data: Record<string, any>;
+  merge?: boolean;
+};
+
+/**
  * Saves a document to a Firestore collection.
  * Optionally, merges the data with the existing document or overwrites it.
  *
@@ -81,12 +96,7 @@ export async function saveDocument({
   id,
   data,
   merge = true,
-}: {
-  collectionPath: string;
-  id?: string;
-  data: Record<string, any>;
-  merge?: boolean;
-}): Promise<string> {
+}: SaveDocumentParams): Promise<string> {
   const preparedData = prepareDataForFirestore(data);
   const documentId = id ?? doc(collection(firestore, collectionPath)).id;
   const docRef = doc(firestore, collectionPath, documentId);
