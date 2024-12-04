@@ -2,11 +2,12 @@ import {
   RedditPostWithComments,
   AnalysisType,
   ChatCompletionResponse,
+  OpenaiApiConfig,
 } from "@/types";
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
 import { generateChatResponse } from "@/lib/openai/dataServices";
 
-const API_CONFIG = {
+const API_CONFIG: OpenaiApiConfig = {
   [ANALYSIS_TYPES.sentiments]: {
     model: "gpt-4o-mini",
     max_tokens: 100,

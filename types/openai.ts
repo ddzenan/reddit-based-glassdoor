@@ -24,3 +24,9 @@ export type OpenaiApiRequestConfig = {
   max_tokens: number;
   temperature: number;
 };
+
+/**
+ * Configuration for API analysis types, mapping each analysis type
+ * to its specific request configuration.
+ */
+export type OpenaiApiConfig = Record<AnalysisType, OpenaiApiRequestConfig>;
