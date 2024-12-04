@@ -1,5 +1,5 @@
 import { openaiClient } from "@/lib/openai/openaiClient";
-import { ChatCompletionResponse } from "@/types";
+import { ChatCompletionResponse, OpenaiApiRequestConfig } from "@/types";
 
 /**
  * Generates a chat response based on the user's prompt using OpenAI's chat API.
@@ -10,7 +10,7 @@ import { ChatCompletionResponse } from "@/types";
  */
 export async function generateChatResponse(
   prompt: string,
-  config: { model: string; max_tokens: number; temperature: number }
+  config: OpenaiApiRequestConfig
 ): Promise<ChatCompletionResponse> {
   return await openaiClient.chat.completions.create({
     messages: [
