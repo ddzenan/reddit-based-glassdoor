@@ -85,10 +85,8 @@ type SaveDocumentParams = {
  * Saves a document to a Firestore collection.
  * Optionally, merges the data with the existing document or overwrites it.
  *
- * @param collectionPath - The Firestore collection path where the document will be saved.
- * @param id - An optional ID for the document. If not provided, a new document will be created.
- * @param data - The data to be saved in the document.
- * @param merge - Whether to merge the data with the existing document (default is true).
+ * @param options - The options for saving the document, including the Firestore collection path,
+ *                  document ID, the data to be saved, and whether to merge the data (default is true).
  * @returns A promise that resolves to the document ID.
  */
 export async function saveDocument({
