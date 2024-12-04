@@ -1,4 +1,4 @@
-import { RevenueOptionsType } from "@/types";
+import { RevenueOption } from "@/types";
 
 /**
  * Represents a company with relevant metadata.
@@ -14,7 +14,7 @@ import { RevenueOptionsType } from "@/types";
  * @property {string} [summary] - A brief summary of the company, based on Reddit posts (optional).
  * @property {number} [yearFounded] - The year the company was founded.
  * @property {string} [numberOfEmployees] - The total number of employees in the company.
- * @property {RevenueOptionsType} [estimatedRevenue] - The company's estimated annual revenue.
+ * @property {RevenueOption} [estimatedRevenue] - The company's estimated annual revenue.
  */
 export type Company = {
   id: string;
@@ -28,7 +28,7 @@ export type Company = {
   summary?: string;
   yearFounded?: number;
   numberOfEmployees?: number;
-  estimatedRevenue?: RevenueOptionsType;
+  estimatedRevenue?: RevenueOption;
 };
 
 /**
