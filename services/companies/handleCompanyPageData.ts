@@ -11,6 +11,17 @@ import { ANALYSIS_TYPES } from "@/utils/constants";
 import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
 
 /**
+ * Data returned by the `handleCompanyPageData` function.
+ *
+ * @property {Company} company - The detailed information of the company.
+ * @property {ReducedRedditPost[]} redditPosts - Array of reduced Reddit posts related to the company.
+ */
+type CompanyPageData = {
+  company: Company;
+  redditPosts: ReducedRedditPost[];
+};
+
+/**
  * Retrieves and prepares company data for a company page based on the provided slug.
  * If the company has no summary, the function fetches Reddit posts, analyzes sentiments,
  * generates a summary, and updates Firestore with new data.
@@ -20,10 +31,9 @@ import { fetchClearbitLogo } from "@/lib/clearbit/dataServices";
  *
  * @throws Throws error if no company matches the provided slug or if data fetching fails.
  */
-export async function handleCompanyPageData(slug: string): Promise<{
-  company: Company;
-  redditPosts: ReducedRedditPost[];
-}> {
+export async function handleCompanyPageData(
+  slug: string
+): Promise<CompanyPageData> {
   const companies = await getDocumentsByField("companies", "slug", slug);
   if (!companies || companies.length === 0)
     throw new Error(`There is no company with slug ${slug}.`);
