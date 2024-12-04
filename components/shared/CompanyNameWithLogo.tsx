@@ -36,7 +36,7 @@ export default function CompanyNameWithLogo({
   name,
   logo,
   size = "md",
-}: CompanyNameWithLogoProps): JSX.Element {
+}: CompanyNameWithLogoProps) {
   const { imgSize, textClass } = SIZE_CONFIG[size];
 
   return (
