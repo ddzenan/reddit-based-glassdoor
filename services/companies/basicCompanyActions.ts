@@ -34,7 +34,7 @@ export async function fetchCompany(
 export async function saveCompany(
   companyData: Partial<Company>,
   companyId?: string
-) {
+): Promise<string> {
   const collectionPath = "companies";
   const id = companyId ?? doc(collection(firestore, collectionPath)).id;
   const data = {
