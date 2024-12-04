@@ -9,6 +9,13 @@ import {
 import Card from "@/components/shared/Card";
 import { SentimentType } from "@/types";
 
+const SENTIMENT_CHART_CONFIG = {
+  primaryColor: {
+    label: "Sentiment",
+    color: "hsl(var(--primary))",
+  },
+} satisfies ChartConfig;
+
 /**
  * Props for the `SentimentChart` component.
  *
@@ -19,13 +26,6 @@ import { SentimentType } from "@/types";
 type SentimentChartProps = {
   [K in SentimentType]: number;
 };
-
-const sentimentChartConfig = {
-  primaryColor: {
-    label: "Sentiment",
-    color: "hsl(var(--primary))",
-  },
-} satisfies ChartConfig;
 
 /**
  * Component that renders a bar chart for visualizing sentiment analysis data.
@@ -38,13 +38,12 @@ export default function SentimentChart(props: SentimentChartProps) {
     sentiment,
     value,
   }));
-
   return (
     <Card
       title="Sentiment Analysis"
       description="The graph represents the sentiment of Reddit posts"
     >
-      <ChartContainer config={sentimentChartConfig}>
+      <ChartContainer config={SENTIMENT_CHART_CONFIG}>
         <BarChart data={sentimentData} className="w-full h-full">
           <CartesianGrid vertical={false} />
           <XAxis
