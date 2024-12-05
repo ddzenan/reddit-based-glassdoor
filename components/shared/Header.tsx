@@ -45,6 +45,10 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
         label: "Edit Companies",
         href: "/admin/companies",
       },
+      {
+        label: "Revalidate",
+        href: "/admin/revalidation",
+      },
     ],
   },
 ];
