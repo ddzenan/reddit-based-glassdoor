@@ -28,15 +28,15 @@ export function useSuccessToast() {
  * Custom hook that provides a function to show an error toast notification.
  * The toast will display a default error message and description, and will automatically close.
  *
- * @returns {() => void} A function that triggers an error toast with a predefined error message and description.
+ * @returns {(description?: string) => void} A function that triggers an error toast with a predefined error message and description.
  */
 export function useErrorToast() {
   const { toast } = useToast();
-  return () => {
+  return (description?: string) => {
     toast({
       variant: "destructive",
       title: ERROR_MESSAGE.title,
-      description: ERROR_MESSAGE.description,
+      description: description ?? ERROR_MESSAGE.description,
       duration: ERROR_DURATION,
     });
   };
