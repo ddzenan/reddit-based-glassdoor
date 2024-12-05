@@ -116,3 +116,14 @@ export function handleInputNullableFieldChange<T>(
     }
   };
 }
+
+/**
+ * Validates if a given path is a valid route.
+ *
+ * @param path - The path to validate.
+ * @returns True if the path is valid, otherwise false.
+ */
+export function isValidPath(path: string): boolean {
+  const pathRegex = /^\/([a-zA-Z0-9_-]+\/?)*$/;
+  return pathRegex.test(path);
+}
