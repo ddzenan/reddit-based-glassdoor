@@ -29,3 +29,14 @@ export type NavigationMenuPopoverItem = {
   label: string;
   href: string;
 };
+
+/**
+ * Represents a word and its frequency count.
+ *
+ * @property {string} word - The word or phrase being counted.
+ * @property {number} count - The frequency of the word or phrase.
+ */
+export type WordFrequency = {
+  word: string;
+  count: number;
+};
