@@ -16,7 +16,7 @@ const API_CONFIG: OpenaiApiConfig = {
   },
   [ANALYSIS_TYPES.companySummary]: {
     model: "gpt-4o-mini",
-    max_tokens: 300,
+    max_tokens: 1500,
     temperature: 1.0,
   },
   [ANALYSIS_TYPES.techIndustrySummary]: {
