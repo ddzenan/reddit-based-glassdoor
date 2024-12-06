@@ -1,5 +1,4 @@
 import { handleHomePageData } from "@/services/homePage/handleHomePageData";
-import { WordFrequency } from "@/types";
 import ExpandableTextWithTitle from "@/components/shared/ExpandableTextWithTitle";
 import RedditPostList from "@/components/shared/RedditPostList";
 import SentimentChart from "@/components/shared/SentimentChart";
@@ -20,18 +19,24 @@ export default async function HomePage() {
     sentimentWords,
     redditPosts,
   } = await handleHomePageData();
+  const hasAnySentimentData =
+    positiveSentiments || neutralSentiments || negativeSentiments;
   return (
     <div className="max-w-screen-md mx-auto px-2 py-8 sm:py-16">
       <div className="grid md:grid-cols-2 md:gap-4">
-        <SentimentChart
-          positive={positiveSentiments as number}
-          neutral={neutralSentiments as number}
-          negative={negativeSentiments as number}
-        />
-        <WordFrequencyChart data={sentimentWords as WordFrequency[]} />
+        {hasAnySentimentData && (
+          <SentimentChart
+            positive={positiveSentiments ?? 0}
+            neutral={neutralSentiments ?? 0}
+            negative={negativeSentiments ?? 0}
+          />
+        )}
+        {sentimentWords && sentimentWords.length && (
+          <WordFrequencyChart data={sentimentWords} />
+        )}
       </div>
-      <ExpandableTextWithTitle title="Summary" text={summary as string} />
-      <RedditPostList posts={redditPosts} />
+      {summary && <ExpandableTextWithTitle title="Summary" text={summary} />}
+      {redditPosts.length && <RedditPostList posts={redditPosts} />}
     </div>
   );
 }

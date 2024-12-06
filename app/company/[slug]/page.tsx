@@ -47,16 +47,20 @@ export default async function CompanyPage(props: CompanyPageProps) {
     numberOfEmployees,
     estimatedRevenue,
   };
+  const hasAnySentimentData =
+    positiveSentiments || neutralSentiments || negativeSentiments;
   return (
     <div className="max-w-screen-md mx-auto px-2 py-8 sm:py-16">
       <CompanyHeader {...companyHeader} />
-      <SentimentChart
-        positive={positiveSentiments as number}
-        neutral={neutralSentiments as number}
-        negative={negativeSentiments as number}
-      />
-      <ExpandableTextWithTitle title="Summary" text={summary as string} />
-      <RedditPostList posts={redditPosts} />
+      {hasAnySentimentData && (
+        <SentimentChart
+          positive={positiveSentiments ?? 0}
+          neutral={neutralSentiments ?? 0}
+          negative={negativeSentiments ?? 0}
+        />
+      )}
+      {summary && <ExpandableTextWithTitle title="Summary" text={summary} />}
+      {redditPosts.length && <RedditPostList posts={redditPosts} />}
     </div>
   );
 }
