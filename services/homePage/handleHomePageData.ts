@@ -5,7 +5,11 @@ import {
 } from "@/lib/firebaseAdmin/dataServices";
 import { fetchPostsAndComments } from "../reddit/fetchPostsAndComments";
 import { analyzeRedditPosts } from "../openai/analyzeRedditPosts";
-import { RedditPostWithComments, ReducedRedditPost } from "@/types";
+import {
+  RedditPostWithComments,
+  ReducedRedditPost,
+  WordFrequency,
+} from "@/types";
 import { countSentiments } from "@/utils/helpers";
 import { ANALYSIS_TYPES } from "@/utils/constants";
 
@@ -16,12 +20,14 @@ import { ANALYSIS_TYPES } from "@/utils/constants";
  * @property {number} neutralSentiments - The number of neutral sentiments identified in the industry.
  * @property {number} negativeSentiments - The number of negative sentiments identified in the industry.
  * @property {string} summary - A summary of the overall sentiment and discussions about the industry.
+ * @property {WordFrequency[]} sentimentWords - An array of sentiment words and their counts.
  */
 type IndustryAnalysis = {
   positiveSentiments?: number;
   neutralSentiments?: number;
   negativeSentiments?: number;
   summary?: string;
+  sentimentWords?: WordFrequency[];
 };
 
 /**
@@ -50,20 +56,26 @@ export async function handleHomePageData(): Promise<HomePageData> {
   );
   if (!redditPosts.length) {
     redditPosts = await fetchPostsAndComments();
-    const [summary, redditPostsWithSentiments] = await Promise.all([
-      analyzeRedditPosts(
-        ANALYSIS_TYPES.techIndustrySummary,
-        redditPosts
-      ) as Promise<string>,
-      analyzeRedditPosts(ANALYSIS_TYPES.sentiments, redditPosts) as Promise<
-        RedditPostWithComments[]
-      >,
-    ]);
+    const [summary, redditPostsWithSentiments, sentimentWords] =
+      await Promise.all([
+        analyzeRedditPosts(
+          ANALYSIS_TYPES.techIndustrySummary,
+          redditPosts
+        ) as Promise<string>,
+        analyzeRedditPosts(ANALYSIS_TYPES.sentiments, redditPosts) as Promise<
+          RedditPostWithComments[]
+        >,
+        analyzeRedditPosts(
+          ANALYSIS_TYPES.techIndustrySentimentWords,
+          redditPosts
+        ) as Promise<WordFrequency[]>,
+      ]);
     const sentimentCounts = countSentiments(redditPostsWithSentiments);
     analysisData = {
       ...analysisData,
       ...sentimentCounts,
       summary,
+      sentimentWords,
     };
     await updateDocumentAndAddToSubcollection(
       "industries/tech",
