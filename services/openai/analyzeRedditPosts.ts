@@ -3,6 +3,7 @@ import {
   AnalysisType,
   ChatCompletionResponse,
   OpenaiApiConfig,
+  WordFrequency,
 } from "@/types";
 import { SENTIMENTS, ANALYSIS_TYPES } from "@/utils/constants";
 import { generateChatResponse } from "@/lib/openai/dataServices";
@@ -23,6 +24,11 @@ const API_CONFIG: OpenaiApiConfig = {
     max_tokens: 2000,
     temperature: 1.0,
   },
+  [ANALYSIS_TYPES.techIndustrySentimentWords]: {
+    model: "gpt-4o-mini",
+    max_tokens: 200,
+    temperature: 0.3,
+  },
 };
 
 /**
@@ -33,13 +39,13 @@ const API_CONFIG: OpenaiApiConfig = {
  * for generating a company summary.
  * @param postsWithComments - Array of Reddit posts with associated comments to analyze.
  * @param companyName - (Optional) The company name, required for company-specific analysis.
- * @returns A promise that resolves to a string (company summary) or an array of posts with sentiment classifications.
+ * @returns A promise that resolves to a string (company or industry summary) or an array of posts with sentiment classifications or sentiemnt words wth counts.
  */
 export async function analyzeRedditPosts(
   analysisType: AnalysisType,
   postsWithComments: RedditPostWithComments[],
   companyName?: string
-): Promise<string | RedditPostWithComments[]> {
+): Promise<string | RedditPostWithComments[] | WordFrequency[]> {
   const prompt = generateAnalysisPrompt(
     analysisType,
     postsWithComments,
@@ -80,6 +86,22 @@ function convertPostsWithCommentsToText(
         )}\nPost ${i + 1} end.\n\n`
     )
     .join("\n");
+}
+
+/**
+ * Parses a string of word:count pairs into an array of WordFrequency objects.
+ *
+ * @param str - The input string containing word:count pairs separated by new lines.
+ * @returns An array of objects representing words and their frequency counts.
+ */
+function parseWordCountString(str: string): WordFrequency[] {
+  return str
+    .split("\n")
+    .map((line) => {
+      const [word, count] = line.split(":");
+      return { word: word.trim(), count: parseInt(count, 10) || 0 };
+    })
+    .sort((a, b) => b.count - a.count);
 }
 
 /**
@@ -129,6 +151,20 @@ function generateAnalysisPrompt(
       - **Advice and shared experiences**: Valuable insights or shared personal stories from professionals, including tips for navigating the industry or transitioning into new roles.      
       Ensure the summary is well-structured, concise, and provides a comprehensive overview that would be valuable for tech professionals seeking insights into the current state of the industry. Where applicable, identify reasons behind prevailing opinions and trends. Posts with comments:\n${postsWithCommentsText}
       `;
+    case ANALYSIS_TYPES.techIndustrySentimentWords:
+      return `Analyze the provided Reddit posts and their associated comments, which focus on the tech industry, with an emphasis on perspectives from employees and job candidates.  
+      Identify exactly 10 words or short phrases that are most frequently mentioned in relation to sentiment (both positive and negative) within the context of employee and candidate experiences.
+      For each word or phrase:  
+      - Provide the word or phrase along with a count indicating how many times it appears in sentiment-related contexts.  
+      - Format the response as follows: word:count, where each pair is listed on a new line.  
+      - Do not include any additional text, headers, or explanations in the response.  
+      Additional instructions:  
+      - Focus solely on the posts and comments provided, avoiding reliance on predefined examples or assumptions.  
+      - Ensure the identified words or phrases reflect sentiment strength and relevance to employee or candidate experiences.  
+      - Exclude general words or stopwords that are unrelated to sentiment (e.g., "the", "and", "of").  
+      Posts with comments:  
+      ${postsWithCommentsText}
+      `;
   }
 }
 
@@ -140,7 +176,7 @@ function generateAnalysisPrompt(
  * general company summary.
  * @param response - Response received from OpenAI API containing the analysis results.
  * @param postsWithComments - (Optional) Original array of Reddit posts, required if analysisType is "sentiments".
- * @returns Either a string (i.e. company summary or subreddit summary) or an array of Reddit posts with added sentiment classifications.
+ * @returns Either a string (i.e. company summary or subreddit summary) or an array of Reddit posts with added sentiment classifications or sentiment words with counts.
  *
  * @throws Error if response content is missing or if data required for sentiment mapping is unavailable.
  */
@@ -148,7 +184,7 @@ function parseAnalysisResponse(
   analysisType: AnalysisType,
   response: ChatCompletionResponse,
   postsWithComments?: RedditPostWithComments[]
-): string | RedditPostWithComments[] {
+): string | RedditPostWithComments[] | WordFrequency[] {
   const responseContent = response.choices?.[0]?.message?.content;
   if (!responseContent) {
     throw new Error("No content received from OpenAI API.");
@@ -176,5 +212,7 @@ function parseAnalysisResponse(
       return responseContent;
     case ANALYSIS_TYPES.techIndustrySummary:
       return responseContent;
+    case ANALYSIS_TYPES.techIndustrySentimentWords:
+      return parseWordCountString(responseContent);
   }
 }
