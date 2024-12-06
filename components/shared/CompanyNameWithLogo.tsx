@@ -41,7 +41,7 @@ export default function CompanyNameWithLogo({
 
   return (
     <div className="flex items-center space-x-4">
-      {typeof logo !== "undefined" ? (
+      {logo ? (
         <Image
           src={logo}
           alt={`${name} Logo`}
