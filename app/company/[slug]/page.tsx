@@ -11,9 +11,9 @@ import SentimentChart from "@/components/shared/SentimentChart";
  * @property {string} params.slug - The unique identifier (slug) for the company.
  */
 type CompanyPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 /**
@@ -23,8 +23,7 @@ type CompanyPageProps = {
  * @param {CompanyPageProps} props - The properties passed to the `CompanyPage` component.
  * @returns A JSX element that renders the company details page.
  */
-export default async function CompanyPage(props: CompanyPageProps) {
-  const { params } = await props;
+export default async function CompanyPage({ params }: CompanyPageProps) {
   const { slug } = await params;
   const { company, redditPosts } = await handleCompanyPageData(slug);
   const {

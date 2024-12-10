@@ -7,9 +7,9 @@ import CompanyForm from "@/components/admin/company/form/CompanyForm";
  * @property {string} searchParams.id - The ID of the company to be edited.
  */
 type CompanyFormPageProps = {
-  searchParams: {
-    id: string;
-  };
+  searchParams: Promise<{
+    id?: string;
+  }>;
 };
 
 /**
@@ -18,9 +18,10 @@ type CompanyFormPageProps = {
  * @param {CompanyFormPageProps} props - The properties passed to the `CompanyFormPage` component.
  * @returns A JSX element that renders the company form.
  */
-export default async function CompanyFormPage(props: CompanyFormPageProps) {
-  const { searchParams } = await props;
-  const { id } = await searchParams;
+export default async function CompanyFormPage({
+  searchParams,
+}: CompanyFormPageProps) {
+  const { id } = (await searchParams) || undefined;
   return (
     <div className="max-w-screen-sm mx-auto px-2 py-8 sm:py-16">
       <CompanyForm companyId={id} />
