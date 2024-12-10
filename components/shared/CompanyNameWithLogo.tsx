@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { CompanyNameWithLogoAndSize } from "@/types";
 import { CiImageOn } from "react-icons/ci";
@@ -38,16 +39,22 @@ export default function CompanyNameWithLogo({
   size = "md",
 }: CompanyNameWithLogoProps) {
   const { imgSize, textClass } = SIZE_CONFIG[size];
+  const [isError, setIsError] = useState(false);
+
+  function handleError() {
+    setIsError(true);
+  }
 
   return (
     <div className="flex items-center space-x-4">
-      {logo ? (
+      {logo && !isError ? (
         <Image
           src={logo}
           alt={`${name} Logo`}
           width={imgSize}
           height={imgSize}
           className="rounded-md"
+          onError={handleError}
         />
       ) : (
         <CiImageOn className="text-foreground rounded-md" size={imgSize} />
