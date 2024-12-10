@@ -19,8 +19,11 @@ export default async function HomePage() {
     sentimentWords,
     redditPosts,
   } = await handleHomePageData();
-  const hasAnySentimentData =
-    positiveSentiments || neutralSentiments || negativeSentiments;
+  const hasAnySentimentData = !!(
+    positiveSentiments ||
+    neutralSentiments ||
+    negativeSentiments
+  );
   return (
     <div className="max-w-screen-md mx-auto px-2 py-8 sm:py-16">
       <div className="grid md:grid-cols-2 md:gap-4">
@@ -31,12 +34,12 @@ export default async function HomePage() {
             negative={negativeSentiments ?? 0}
           />
         )}
-        {sentimentWords && sentimentWords.length && (
+        {sentimentWords && sentimentWords.length !== 0 && (
           <WordFrequencyChart data={sentimentWords} />
         )}
       </div>
       {summary && <ExpandableTextWithTitle title="Summary" text={summary} />}
-      {redditPosts.length && <RedditPostList posts={redditPosts} />}
+      {redditPosts.length !== 0 && <RedditPostList posts={redditPosts} />}
     </div>
   );
 }

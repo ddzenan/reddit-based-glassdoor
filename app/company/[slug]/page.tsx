@@ -46,8 +46,11 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
     numberOfEmployees,
     estimatedRevenue,
   };
-  const hasAnySentimentData =
-    positiveSentiments || neutralSentiments || negativeSentiments;
+  const hasAnySentimentData = !!(
+    positiveSentiments ||
+    neutralSentiments ||
+    negativeSentiments
+  );
   return (
     <div className="max-w-screen-md mx-auto px-2 py-8 sm:py-16">
       <CompanyHeader {...companyHeader} />
@@ -59,7 +62,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         />
       )}
       {summary && <ExpandableTextWithTitle title="Summary" text={summary} />}
-      {redditPosts.length && <RedditPostList posts={redditPosts} />}
+      {redditPosts.length !== 0 && <RedditPostList posts={redditPosts} />}
     </div>
   );
 }
