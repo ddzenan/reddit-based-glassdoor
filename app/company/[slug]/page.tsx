@@ -38,7 +38,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
     negativeSentiments,
     summary,
   } = company;
-  let companyHeader = {
+  const companyHeader = {
     name,
     logo,
     website,
