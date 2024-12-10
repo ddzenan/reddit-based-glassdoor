@@ -47,6 +47,7 @@ export async function handleCompanyPageData(
       redditPosts = await fetchPostsAndComments({
         searchTerm: name,
       });
+      if (!redditPosts.length) return { company, redditPosts: [] };
       const [summary, redditPostsWithSentiments] = await Promise.all([
         analyzeRedditPosts(
           ANALYSIS_TYPES.companySummary,
