@@ -18,7 +18,7 @@ export async function fetchClearbitLogo(
     const response = await fetch(logoUrl);
     if (!response.ok) return null;
     return logoUrl;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

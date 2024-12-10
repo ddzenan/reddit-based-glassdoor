@@ -71,7 +71,7 @@ export async function handleCompanyPageData(
         "redditPosts",
         redditPostsWithSentiments
       );
-    } catch (error) {
+    } catch {
       return { company, redditPosts: [] };
     }
   }

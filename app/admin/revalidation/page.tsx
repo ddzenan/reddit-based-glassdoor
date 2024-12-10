@@ -25,7 +25,7 @@ export default function RevalidationPage() {
     try {
       await revalidate(path);
       showSuccessToast(`Revalidated: ${path}`);
-    } catch (error) {
+    } catch {
       showErrorToast(`Failed to revalidate: ${path}`);
     }
   }

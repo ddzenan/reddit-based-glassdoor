@@ -42,7 +42,7 @@ export function useCompanyData(
           const company = await fetchCompany(companyId, fields);
           if (company) setData(company);
         }
-      } catch (error) {
+      } catch {
         setIsError(true);
         setData({});
       } finally {

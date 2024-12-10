@@ -104,7 +104,7 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
       if (companyId) return;
       router.push("/admin/company/form");
       reset();
-    } catch (error) {
+    } catch {
       showErrorToast();
     } finally {
       setIsSubmitting(false);

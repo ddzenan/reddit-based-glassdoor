@@ -41,7 +41,7 @@ export function useCompanyDeletion<T extends { id: string }>(
         prev.filter((company) => company.id !== companyId)
       );
       showSuccessToast("Company deleted successfully!");
-    } catch (error) {
+    } catch {
       showErrorToast();
     } finally {
       setIsDeleting(false);
