@@ -43,33 +43,37 @@ export async function handleCompanyPageData(
     `companies/${id}/redditPosts`
   );
   if (!redditPosts.length) {
-    redditPosts = await fetchPostsAndComments({
-      searchTerm: name,
-    });
-    const [summary, redditPostsWithSentiments] = await Promise.all([
-      analyzeRedditPosts(
-        ANALYSIS_TYPES.companySummary,
-        redditPosts,
-        name
-      ) as Promise<string>,
-      analyzeRedditPosts(
-        ANALYSIS_TYPES.sentiments,
-        redditPosts,
-        name
-      ) as Promise<RedditPostWithComments[]>,
-    ]);
-    const sentimentCounts = countSentiments(redditPostsWithSentiments);
-    company = {
-      ...company,
-      ...sentimentCounts,
-      summary,
-    };
-    await updateDocumentAndAddToSubcollection(
-      `companies/${id}`,
-      company,
-      "redditPosts",
-      redditPostsWithSentiments
-    );
+    try {
+      redditPosts = await fetchPostsAndComments({
+        searchTerm: name,
+      });
+      const [summary, redditPostsWithSentiments] = await Promise.all([
+        analyzeRedditPosts(
+          ANALYSIS_TYPES.companySummary,
+          redditPosts,
+          name
+        ) as Promise<string>,
+        analyzeRedditPosts(
+          ANALYSIS_TYPES.sentiments,
+          redditPosts,
+          name
+        ) as Promise<RedditPostWithComments[]>,
+      ]);
+      const sentimentCounts = countSentiments(redditPostsWithSentiments);
+      company = {
+        ...company,
+        ...sentimentCounts,
+        summary,
+      };
+      await updateDocumentAndAddToSubcollection(
+        `companies/${id}`,
+        company,
+        "redditPosts",
+        redditPostsWithSentiments
+      );
+    } catch (error) {
+      return { company, redditPosts: [] };
+    }
   }
   if (website) {
     const logo = await fetchClearbitLogo(website);
