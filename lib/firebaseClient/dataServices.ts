@@ -57,7 +57,9 @@ type FirestoreData = {
  * @param data - The data to be prepared for Firestore.
  * @returns A new data object with undefined values removed.
  */
-function prepareDataForFirestore(data: Record<string, any>): FirestoreData {
+export function prepareDataForFirestore(
+  data: Record<string, any>
+): FirestoreData {
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [
       key,
