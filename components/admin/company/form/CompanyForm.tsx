@@ -63,6 +63,7 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
     isLoading: isCompanyLoading,
     isError: isCompanyError,
   } = useCompanyData(companyId, FIELDS);
+  const hasCompanyData = Object.keys(companyData).length > 0;
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const showSuccessToast = useSuccessToast();
   const showErrorToast = useErrorToast();
@@ -81,12 +82,11 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
   const { control, handleSubmit, setValue, reset } = form;
 
   useEffect(() => {
-    const hasCompanyData = Object.keys(companyData).length > 0;
     if (hasCompanyData) {
       const transformedData = transformToNull(companyData, FIELDS);
       reset(transformedData);
     }
-  }, [companyData, reset]);
+  }, [hasCompanyData, companyData, reset]);
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.value;
@@ -163,7 +163,7 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
             >
               {isSubmitting
                 ? "Please wait..."
-                : companyId
+                : hasCompanyData
                 ? "Update Company"
                 : "Add Company"}
             </Button>
