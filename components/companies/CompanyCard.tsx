@@ -19,6 +19,7 @@ type CompanyCardProps = CompanyBasicInfoWithLogo;
 export default function CompanyCard({ name, slug, logo }: CompanyCardProps) {
   return (
     <Link
+      data-cy="company-card"
       className="flex items-center border rounded-md p-4 cursor-pointer hover:bg-muted transition-colors no-underline"
       href={`/company/${slug}`}
       passHref
