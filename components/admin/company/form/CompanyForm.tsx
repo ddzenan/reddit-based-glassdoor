@@ -81,7 +81,8 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
   const { control, handleSubmit, setValue, reset } = form;
 
   useEffect(() => {
-    if (companyData) {
+    const hasCompanyData = Object.keys(companyData).length > 0;
+    if (hasCompanyData) {
       const transformedData = transformToNull(companyData, FIELDS);
       reset(transformedData);
     }
