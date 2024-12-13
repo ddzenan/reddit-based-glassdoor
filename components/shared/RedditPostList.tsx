@@ -35,6 +35,7 @@ export default function RedditPostList({ posts }: RedditPostListProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block p-2 rounded-md hover:bg-muted transition-colors no-underline"
+                data-cy="reddit-post"
               >
                 <h3 className="text-base font-medium text-primary">
                   {post.title}

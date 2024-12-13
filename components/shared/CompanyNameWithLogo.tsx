@@ -59,7 +59,9 @@ export default function CompanyNameWithLogo({
       ) : (
         <CiImageOn className="text-foreground rounded-md" size={imgSize} />
       )}
-      <h1 className={`${textClass} text-foreground`}>{name}</h1>
+      <h1 className={`${textClass} text-foreground`} data-cy="company-name">
+        {name}
+      </h1>
     </div>
   );
 }
