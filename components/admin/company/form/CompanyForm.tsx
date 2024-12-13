@@ -167,6 +167,9 @@ export default function CompanyForm({ companyId }: CompanyFormProps) {
                 ? "Update Company"
                 : "Add Company"}
             </Button>
+            <p className="text-sm text-muted-foreground">
+              Note: Only an admin can add and edit a company.
+            </p>
           </form>
         </Form>
       )}
