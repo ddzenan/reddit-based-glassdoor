@@ -14,7 +14,7 @@ export default defineConfig({
 
       process.env.GOOGLE_APPLICATION_CREDENTIALS = path.resolve(
         __dirname,
-        "serviceAccount.json"
+        "../serviceAccount.json"
       );
 
       return config;

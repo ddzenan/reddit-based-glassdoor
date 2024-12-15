@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "cy:open": "cypress open",
+    "cy:open": "cypress open --config-file cypress/cypress.config.ts",
     "docs": "typedoc"
   },
   "dependencies": {
