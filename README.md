@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reddit Based Glassdoor
+
+Reddit Based Glassdoor aggregates and analyzes Reddit discussions to provide insights into the tech industry and companies.
+
+- **Live Application:** [Visit Here](https://reddit-based-glassdoor.vercel.app/)
+- **Documentation:** [View Documentation](https://reddit-based-glassdoor.vercel.app/docs)
+
+## About the website
+
+This website leverages Reddit API and OpenAI API to collect and analyze data from Reddit posts and comments about the tech industry and its companies. The website provides users with:
+
+1. **Industry Overview**: A summary of the tech industry with sentiment analysis, frequently mentioned terms and a list of Reddit posts used for the analysis.
+
+2. **Company Insights**:
+
+   - Company-specific data such as founding year, number of employees, estimated revenue and website.
+   - Sentiment analysis and summary tailored for each company.
+   - A list of Reddit posts used for the analysis.
+
+3. **Admin Panel**: Functionalities for adding, editing, and deleting company information.
+
+## Built With
+
+The application uses the following technologies and tools:
+
+- **Frontend**: Next.js, TypeScript, Tailwind CSS, ShadCN.
+- **Backend**: Firebase/Firestore.
+- **Testing**: Jest (unit tests), Cypress (end-to-end tests).
+- **Form Handling**: react-hook-form, Zod.
+- **APIs**: Reddit API, OpenAI API.
+- **Documentation**: TypeDocs.
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  Clone the repository:
+    `git clone https://github.com/ddzenan/reddit-based-glassdoor.git`
+2.  Navigate to the project directory:
+    `cd reddit-based-glassdoor`
+3.  Install dependencies:
+    `npm install`
+4.  Configure your Firebase settings.
+5.  Start the development server:
+    `npm start`
+6.  Open your browser and visit `http://localhost:3000` to view the website.
