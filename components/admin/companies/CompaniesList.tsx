@@ -29,7 +29,9 @@ export default function CompaniesList({
   return (
     <div className="grid gap-4">
       {companies.length === 0 ? (
-        <p className="text-center">No companies found.</p>
+        <p className="text-center" data-cy="no-companies">
+          No companies found.
+        </p>
       ) : (
         companies.map((company) => (
           <CompanyCard

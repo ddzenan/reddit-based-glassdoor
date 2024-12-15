@@ -38,12 +38,18 @@ export default function SearchBar({
   return (
     <div className="flex space-x-2">
       <Input
+        data-cy="search-bar-by-name"
         placeholder="Search company by name"
         value={searchQuery}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <Button onClick={onSearch} disabled={isLoading} className="text-normal">
+      <Button
+        data-cy="search-by-name-button"
+        onClick={onSearch}
+        disabled={isLoading}
+        className="text-normal"
+      >
         Search
       </Button>
     </div>

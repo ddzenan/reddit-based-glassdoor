@@ -73,7 +73,7 @@ export default function AlertDialogModal({
           {triggerButtonLabel}
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent data-cy="alert-dialog-content">
         {(title || description || children) && (
           <AlertDialogHeader>
             {title && <AlertDialogTitle>{title}</AlertDialogTitle>}
@@ -86,7 +86,10 @@ export default function AlertDialogModal({
         {(hasCancelButton || onAction) && (
           <AlertDialogFooter>
             {hasCancelButton && (
-              <AlertDialogCancel className={cancelButtonClassName}>
+              <AlertDialogCancel
+                className={cancelButtonClassName}
+                data-cy="alert-dialog-cancel-button"
+              >
                 Cancel
               </AlertDialogCancel>
             )}
@@ -95,6 +98,7 @@ export default function AlertDialogModal({
                 onClick={onAction}
                 className={actionButtonClassName}
                 disabled={isActionButtonDisabled}
+                data-cy="alert-dialog-action-button"
               >
                 {actionLabel}
               </AlertDialogAction>

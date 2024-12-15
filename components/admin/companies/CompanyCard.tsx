@@ -30,7 +30,10 @@ export default function CompanyCard({
   isDeleting,
 }: CompanyCardProps) {
   return (
-    <div className="flex justify-between items-center border p-4 rounded">
+    <div
+      className="flex justify-between items-center border p-4 rounded"
+      data-cy={`company-card-${id}`}
+    >
       <h2 className="font-semibold text-blue-500 hover:underline">
         <Link href={`/company/${slug}`}>{name}</Link>
       </h2>

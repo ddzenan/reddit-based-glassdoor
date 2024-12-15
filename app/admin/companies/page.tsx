@@ -41,7 +41,9 @@ export default function AdminCompaniesPage() {
       </p>
       <div className="mt-16">
         {isLoading ? (
-          <p className="text-center">Loading...</p>
+          <p className="text-center" data-cy="loading-companies">
+            Loading...
+          </p>
         ) : isError ? (
           <ErrorAlert />
         ) : (
