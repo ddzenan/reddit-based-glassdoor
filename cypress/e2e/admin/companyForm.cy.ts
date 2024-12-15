@@ -35,12 +35,11 @@ describe("Company Form Page", () => {
   });
 
   it("should show error when year is greater than current year", () => {
-    const futureYear = new Date().getFullYear() + 1;
+    const currentYear = new Date().getFullYear();
+    const futureYear = currentYear + 1;
     cy.get('[name="yearFounded"]').type(futureYear.toString());
     cy.get('button[type="submit"]').click();
-    cy.contains(`Year cannot be later than ${new Date().getFullYear()}`).should(
-      "exist"
-    );
+    cy.contains(`Year cannot be later than ${currentYear}`).should("exist");
   });
 
   it("should show error when number of employees is negative", () => {
@@ -53,24 +52,32 @@ describe("Company Form Page", () => {
     cy.get('[name="name"]').type("Test Company");
     cy.get('[name="slug"]').should("have.value", "test-company");
     cy.get('[name="website"]').type("https://example.com");
-    cy.get('[name="yearFounded"]').type(2000);
-    cy.get('[name="numberOfEmployees"]').type(50);
-    cy.get('[name="estimatedRevenue"]').select("$100B+", { force: true });
+    cy.get('[name="yearFounded"]').type("2000");
+    cy.get('[name="numberOfEmployees"]').type("100");
+    cy.get('[name="estimatedRevenue"]').select("$100M - $500M", {
+      force: true,
+    });
     cy.get('button[type="submit"]').click();
 
     cy.contains("Successfully created company!").should("exist");
   });
 
   it("renders with existing company data for editing", () => {
-    cy.visit(`${url}?id=PEUG3BfzPh0w4tUcJTYK`);
-    cy.get('[name="name"]').should("have.value", "Microsoft");
-    cy.get('[name="slug"]').should("have.value", "microsoft");
-    cy.get('[name="website"]').should(
-      "have.value",
-      "https://www.microsoft.com/"
-    );
-    cy.get('[name="yearFounded"]').should("have.value", 1975);
-    cy.get('[name="numberOfEmployees"]').should("have.value", 250000);
-    cy.get('[name="estimatedRevenue"]').should("have.value", "$100B+");
+    cy.callFirestore("set", "companies/1", {
+      id: "1",
+      name: "Test Company",
+      slug: "test-company",
+      website: "https://example.com",
+      yearFounded: "2000",
+      numberOfEmployees: "100",
+      estimatedRevenue: "$100M - $500M",
+    });
+    cy.visit(`${url}?id=1`);
+    cy.get('[name="name"]').should("have.value", "Test Company");
+    cy.get('[name="slug"]').should("have.value", "test-company");
+    cy.get('[name="website"]').should("have.value", "https://example.com");
+    cy.get('[name="yearFounded"]').should("have.value", "2000");
+    cy.get('[name="numberOfEmployees"]').should("have.value", "100");
+    cy.get('[name="estimatedRevenue"]').should("have.value", "$100M - $500M");
   });
 });
