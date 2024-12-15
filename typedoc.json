@@ -1,0 +1,18 @@
+{
+  "entryPoints": [
+    "./app",
+    "./components",
+    "./hooks",
+    "./lib",
+    "./schemas",
+    "./services",
+    "./types",
+    "./utils"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "public/docs",
+  "tsconfig": "./tsconfig.json",
+  "name": "Reddit Based Glassdoor",
+  "includeVersion": false,
+  "exclude": ["node_modules", ".next", "__test__", "__mocks__", "cypress"]
+}
