@@ -4,7 +4,7 @@ import CompanyList from "@/components/companies/CompanyList";
 /**
  * A Next.js page component that renders a list of companies.
  *
- * @returnsA JSX element that renders the companies page.
+ * @returns A JSX element that renders the companies page.
  */
 export default async function CompaniesPage() {
   const companies = await handleCompaniesPageData();
