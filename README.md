@@ -2,8 +2,8 @@
 
 Reddit Based Glassdoor aggregates and analyzes Reddit discussions to provide insights into the tech industry and companies.
 
-- **Live Application:** [Visit Here](https://reddit-based-glassdoor.vercel.app/)
-- **Documentation:** [View Documentation](https://reddit-based-glassdoor.vercel.app/docs)
+- **Live Application:** [https://reddit-based-glassdoor.vercel.app/](https://reddit-based-glassdoor.vercel.app/)
+- **Documentation:** [https://reddit-based-glassdoor.vercel.app/docs](https://reddit-based-glassdoor.vercel.app/docs)
 
 ## About the website
 
@@ -25,10 +25,10 @@ The application uses the following technologies and tools:
 
 - **Frontend**: Next.js, TypeScript, Tailwind CSS, ShadCN.
 - **Backend**: Firebase/Firestore.
-- **Testing**: Jest (unit tests), Cypress (end-to-end tests).
-- **Form Handling**: react-hook-form, Zod.
+- **Testing**: Jest, Cypress.
+- **Form Handling**: React Hook Form, Zod.
 - **APIs**: Reddit API, OpenAI API.
-- **Documentation**: TypeDocs.
+- **Documentation**: TypeDoc.
 
 ## Getting Started
 
@@ -38,7 +38,7 @@ The application uses the following technologies and tools:
     `cd reddit-based-glassdoor`
 3.  Install dependencies:
     `npm install`
-4.  Configure your Firebase settings.
+4.  Configure your environment variables.
 5.  Start the development server:
-    `npm start`
+    `npm run dev`
 6.  Open your browser and visit `http://localhost:3000` to view the website.
