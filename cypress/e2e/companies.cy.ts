@@ -13,7 +13,7 @@ describe("Companies Page", () => {
   });
 
   it("should have working navigation links", () => {
-    cy.get("nav").contains("Home").click();
+    cy.get('[data-cy="main-nav"]').contains("Home").click();
     cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
   });
 });

@@ -60,7 +60,10 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
  */
 export default function Header() {
   return (
-    <header className="w-full sticky top-0 z-50 p-4 backdrop-filter backdrop-blur-lg">
+    <header
+      className="w-full sticky top-0 z-50 p-4 backdrop-filter backdrop-blur-lg"
+      data-cy="main-nav"
+    >
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           {NAVIGATION_ITEMS.map((item) => (
