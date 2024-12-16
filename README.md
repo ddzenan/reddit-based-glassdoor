@@ -2,7 +2,7 @@
 
 Reddit Based Glassdoor aggregates and analyzes Reddit discussions to provide insights into the tech industry and companies.
 
-- **Live Application:** [https://reddit-based-glassdoor.vercel.app/](https://reddit-based-glassdoor.vercel.app/)
+- **Live:** [https://reddit-based-glassdoor.vercel.app/](https://reddit-based-glassdoor.vercel.app/)
 - **Documentation:** [https://reddit-based-glassdoor.vercel.app/docs](https://reddit-based-glassdoor.vercel.app/docs)
 
 ## About the website
