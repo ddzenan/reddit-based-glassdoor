@@ -17,6 +17,15 @@ const nextConfig = {
       },
     ].filter((pattern) => pattern.hostname),
   },
+  async redirects() {
+    return [
+      {
+        source: "/docs",
+        destination: "/docs/index.html",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
